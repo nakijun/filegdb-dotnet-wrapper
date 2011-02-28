@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileGDB_DotNet", "FileGDB_DotNet\FileGDB_DotNet.vcproj", "{64209DBF-7AA2-448C-A7F9-C5E010A827BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGDB_Test", "FileGDB_Test\FileGDB_Test.csproj", "{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA} = {64209DBF-7AA2-448C-A7F9-C5E010A827BA}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Debug|Win32.Build.0 = Debug|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Any CPU.ActiveCfg = Release|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Win32.ActiveCfg = Release|Win32
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Win32.Build.0 = Release|Win32
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9B887CC0-49B5-4F89-87AB-CD8B53857AEA}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
