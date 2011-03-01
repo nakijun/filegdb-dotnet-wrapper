@@ -1,3 +1,8 @@
+/**
+ * Code by Sasa Ivetic (Map It Out Inc.) 2011
+ */
+
+
 using System;
 using System.IO;
 using FileGDB_DotNet;

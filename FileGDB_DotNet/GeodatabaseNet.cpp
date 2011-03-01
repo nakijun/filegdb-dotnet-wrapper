@@ -1,3 +1,8 @@
+/**
+ * Code by Sasa Ivetic (Map It Out Inc.) 2011
+ */
+
+
 // This is the main DLL file.
 
 #include "stdafx.h"

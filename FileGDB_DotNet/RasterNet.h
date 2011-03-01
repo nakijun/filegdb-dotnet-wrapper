@@ -1,3 +1,8 @@
+/**
+ * Code by Sasa Ivetic (Map It Out Inc.) 2011
+ */
+
+
 #pragma once
 
 #define EXT_FILEGDB_API _declspec(dllimport)
