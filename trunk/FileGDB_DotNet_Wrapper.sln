@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileGDB_DotNet", "FileGDB_DotNet\FileGDB_DotNet.vcproj", "{64209DBF-7AA2-448C-A7F9-C5E010A827BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrapper_Test", "Wrapper_Test\Wrapper_Test.csproj", "{9D9A68A8-AA6F-43D0-B95A-E1556168B165}"
+	ProjectSection(ProjectDependencies) = postProject
+		{64209DBF-7AA2-448C-A7F9-C5E010A827BA} = {64209DBF-7AA2-448C-A7F9-C5E010A827BA}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +28,16 @@ Global
 		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Win32.ActiveCfg = Release|Win32
 		{64209DBF-7AA2-448C-A7F9-C5E010A827BA}.Release|Win32.Build.0 = Release|Win32
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9D9A68A8-AA6F-43D0-B95A-E1556168B165}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
