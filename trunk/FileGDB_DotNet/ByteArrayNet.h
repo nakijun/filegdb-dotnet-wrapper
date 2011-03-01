@@ -19,6 +19,7 @@ namespace FileGDB_DotNet
 	public ref class ByteArrayNet
 	{
 	public:
+		ByteArrayNet() : fgdbApiByteArray(new FileGDBAPI::ByteArray()) {};
 		ByteArrayNet(unsigned long length) : fgdbApiByteArray(new FileGDBAPI::ByteArray(length)) {};
 
 		~ByteArrayNet() 

@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 
 		FileGDBAPI::EnumRows* fgdbApiEnumRows;
 
-		void Next(FileGDB_DotNet::RowNet^ row);
+		FileGDB_DotNet::RowNet^ Next();
 		void Close();
 
 	protected:

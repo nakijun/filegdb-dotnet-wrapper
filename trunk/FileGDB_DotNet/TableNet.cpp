@@ -193,14 +193,12 @@ namespace FileGDB_DotNet
 		MarshalString(subfields, wSubfields);
 		MarshalString(whereClause, wWhereClause);
 
-		FileGDBAPI::EnumRows rows;
+		EnumRowsNet^ outrows = gcnew EnumRowsNet();
 		long hr;
-		if ((hr = fgdbApiTable->Search(wSubfields, wWhereClause, *envelope->fgdbApiEnvelope, recycling, rows)) != S_OK) {
+		if ((hr = fgdbApiTable->Search(wSubfields, wWhereClause, *envelope->fgdbApiEnvelope, recycling, *outrows->fgdbApiEnumRows)) != S_OK) {
 			throw gcnew FGDBException("Error searching table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		EnumRowsNet^ outrows = gcnew EnumRowsNet();
-		outrows->fgdbApiEnumRows = &rows;
 		return outrows;
 	}
 
@@ -210,27 +208,23 @@ namespace FileGDB_DotNet
 		MarshalString(subfields, wSubfields);
 		MarshalString(whereClause, wWhereClause);
 
-		FileGDBAPI::EnumRows rows;
+		EnumRowsNet^ outrows = gcnew EnumRowsNet();
 		long hr;
-		if ((hr = fgdbApiTable->Search(wSubfields, wWhereClause, recycling, rows)) != S_OK) {
+		if ((hr = fgdbApiTable->Search(wSubfields, wWhereClause, recycling, *outrows->fgdbApiEnumRows)) != S_OK) {
 			throw gcnew FGDBException("Error searching table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		EnumRowsNet^ outrows = gcnew EnumRowsNet();
-		outrows->fgdbApiEnumRows = &rows;
 		return outrows;
 	}
 
 	RowNet^ TableNet::CreateRowObject()
 	{
-		FileGDBAPI::Row row;
+		RowNet^ outrow = gcnew RowNet();
 		long hr;
-		if ((hr = fgdbApiTable->CreateRowObject(row)) != S_OK) {
+		if ((hr = fgdbApiTable->CreateRowObject(*outrow->fgdbApiRow)) != S_OK) {
 			throw gcnew FGDBException("Error creating row object table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		RowNet^ outrow = gcnew RowNet();
-		outrow->fgdbApiRow = &row;
 		return outrow;
 	}
 
@@ -282,14 +276,12 @@ namespace FileGDB_DotNet
 
 	EnvelopeNet^ TableNet::GetExtent()
 	{
-		FileGDBAPI::Envelope envelope;
+		EnvelopeNet^ outenv = gcnew EnvelopeNet();
 		long hr;
-		if ((hr = fgdbApiTable->GetExtent(envelope)) != S_OK) {
+		if ((hr = fgdbApiTable->GetExtent(*outenv->fgdbApiEnvelope)) != S_OK) {
 			throw gcnew FGDBException("Error getting envelope.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		EnvelopeNet^ outenv = gcnew EnvelopeNet();
-		outenv->fgdbApiEnvelope = &envelope;
 		return outenv;
 	}
 }

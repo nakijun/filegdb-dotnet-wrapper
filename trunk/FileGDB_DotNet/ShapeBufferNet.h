@@ -19,6 +19,7 @@ namespace FileGDB_DotNet
 	public ref class ShapeBufferNet
 	{
 	public:
+		ShapeBufferNet() : fgdbApiShapeBuffer(new FileGDBAPI::ShapeBuffer()) {};
 		ShapeBufferNet(unsigned long length) : fgdbApiShapeBuffer(new FileGDBAPI::ShapeBuffer(length)) {};
 
 		~ShapeBufferNet() 
