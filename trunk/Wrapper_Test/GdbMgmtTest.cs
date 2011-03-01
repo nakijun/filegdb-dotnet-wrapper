@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using FileGDB_DotNet;
 
 namespace Wrapper_Test
@@ -18,6 +19,12 @@ namespace Wrapper_Test
                 GeodatabaseNet gdbnet = new GeodatabaseNet();
                 gdbnet.CreateGeodatabase(gdbpath);
 
+                if (!Directory.Exists(gdbpath))
+                {
+                    Console.WriteLine("ERROR - Geodatabase creation reported no errors but no geodatabase found.  Exiting...");
+                    return;
+                }
+
                 Console.WriteLine("Closing Geodatabase");
                 gdbnet.CloseGeodatabase();
 
@@ -26,7 +33,7 @@ namespace Wrapper_Test
                 gdbnet.CloseGeodatabase();
 
                 Console.WriteLine("Deleting Geodatabase");
-                //gdbnet.DeleteGeodatabase(gdbpath);
+                gdbnet.DeleteGeodatabase(gdbpath);
 
                 Console.WriteLine("***** Finished Running Geodatabase Management Test *****");   
             }
