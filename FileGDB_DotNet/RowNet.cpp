@@ -59,14 +59,12 @@ namespace FileGDB_DotNet
 
 	ShapeBufferNet^ RowNet::GetGeometry() 
 	{
-		FileGDBAPI::ShapeBuffer val;
+		ShapeBufferNet^ outsb = gcnew ShapeBufferNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetGeometry(val)) != S_OK) {
+		if ((hr = fgdbApiRow->GetGeometry(*outsb->fgdbApiShapeBuffer)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		ShapeBufferNet^ outsb = gcnew ShapeBufferNet(val.allocatedLength);
-		outsb->fgdbApiShapeBuffer = &val;
 		return outsb;
 	}
 
@@ -290,14 +288,12 @@ namespace FileGDB_DotNet
 		std::wstring wField;
 		MarshalString(field, wField);
 
-		FileGDBAPI::Raster val;
+		RasterNet^ outraster = gcnew RasterNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetRaster(wField, val)) != S_OK) {
+		if ((hr = fgdbApiRow->GetRaster(wField, *outraster->fgdbApiRaster)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		RasterNet^ outraster = gcnew RasterNet();
-		outraster->fgdbApiRaster = &val;
 		return outraster;
 	}
 
@@ -317,14 +313,12 @@ namespace FileGDB_DotNet
 		std::wstring wField;
 		MarshalString(field, wField);
 
-		FileGDBAPI::ByteArray val;
+		ByteArrayNet^ outba = gcnew ByteArrayNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetBinary(wField, val)) != S_OK) {
+		if ((hr = fgdbApiRow->GetBinary(wField, *outba->fgdbApiByteArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		ByteArrayNet^ outba = gcnew ByteArrayNet(val.allocatedLength);
-		outba->fgdbApiByteArray = &val;
 		return outba;
 	}
 

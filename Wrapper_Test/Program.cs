@@ -30,6 +30,9 @@ namespace Wrapper_Test
                         case "2":
                             TableSchemaTest.Run();
                             break;
+                        case "3":
+                            QueryingTest.Run();
+                            break;
                         case "all":
                             RunAllTests();
                             break;
@@ -45,6 +48,7 @@ namespace Wrapper_Test
         {
             GdbMgmtTest.Run();
             TableSchemaTest.Run();
+            QueryingTest.Run();
         }
 
         private static void WriteIntro()
@@ -52,6 +56,7 @@ namespace Wrapper_Test
             Console.WriteLine("Enter a number for the test to run.  Type ALL to execute all tests, EXIT to finish.\n");
             Console.WriteLine("1: Geodatabase Management (Create/Open/Close/Delete)");
             Console.WriteLine("2: Table Schema (Create Table, Create/Alter/Delete Subtype");
+            Console.WriteLine("3: Table Query (Search, EnumRows, Attribute Value)");
         }
     }
 }

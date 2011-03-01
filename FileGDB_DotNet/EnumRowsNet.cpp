@@ -10,13 +10,18 @@
 
 namespace FileGDB_DotNet 
 {
-	void EnumRowsNet::Next(FileGDB_DotNet::RowNet^ row) 
+	FileGDB_DotNet::RowNet^ EnumRowsNet::Next() 
 	{
-		FileGDBAPI::Row apiRow;
+		RowNet^ netrow = gcnew RowNet();
 		long hr;
-		if ((hr = fgdbApiEnumRows->Next(apiRow)) != S_OK) {
-			throw gcnew FGDBException("Error getting next row.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
+		if ((hr = fgdbApiEnumRows->Next(*netrow->fgdbApiRow)) != S_OK) {
+			if (hr == 1)
+				return nullptr;
+			else
+				throw gcnew FGDBException("Error getting next row.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
+
+		return netrow;
 	}
 
 	void EnumRowsNet::Close()
