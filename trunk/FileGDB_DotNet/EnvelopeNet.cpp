@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2011 Sasa Ivetic, Map It Out Inc.
+ */
+
+
 #include "stdafx.h"
 
 #include "EnvelopeNet.h"
