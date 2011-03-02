@@ -4,9 +4,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Wrapper_Test
 {
@@ -31,21 +28,28 @@ namespace Wrapper_Test
                             TableSchemaTest.Run();
                             break;
                         case "3":
-                            FeatureDatasetTest.Run();
+                            TableSchemaInfoTest.Run();
                             break;
                         case "4":
-                            QueryingTest.Run();
+                            FeatureDatasetTest.Run();
                             break;
                         case "5":
-                            SQLTest.Run();
+                            QueryingTest.Run();
                             break;
                         case "6":
+                            SQLTest.Run();
+                            break;
+                        case "7":
                             EditingTest.Run();
                             break;
                         case "all":
                             RunAllTests();
                             break;
                     }
+                }
+                else
+                {
+                    WriteIntro();
                 }
 
                 Console.Write("Test #> ");
@@ -57,6 +61,7 @@ namespace Wrapper_Test
         {
             GdbMgmtTest.Run();
             TableSchemaTest.Run();
+            TableSchemaInfoTest.Run();
             FeatureDatasetTest.Run();
             QueryingTest.Run();
             SQLTest.Run();
@@ -68,10 +73,11 @@ namespace Wrapper_Test
             Console.WriteLine("Enter a number for the test to run.  Type ALL to execute all tests, EXIT to finish.\n");
             Console.WriteLine("1: Geodatabase Management (Create/Open/Close/Delete)");
             Console.WriteLine("2: Table Schema (Create Table, Create/Alter/Delete Subtype");
-            Console.WriteLine("3: Feature Dataset (Create dataset, Create table in the dataset)");
-            Console.WriteLine("4: Table Query (Search, EnumRows, Attribute Value)");
-            Console.WriteLine("5: SQL Query (Execute SQL query, Enumerate rows)");
-            Console.WriteLine("6: Editing (Update attribute, Delete rows)");
+            Console.WriteLine("3: Table Schema Info (Get Table Definition, Get/Set Table Documentation)");
+            Console.WriteLine("4: Feature Dataset (Create dataset, Create table in the dataset)");
+            Console.WriteLine("5: Table Query (Search, EnumRows, Attribute Value)");
+            Console.WriteLine("6: SQL Query (Execute SQL query, Enumerate rows)");
+            Console.WriteLine("7: Editing (Update attribute, Delete rows)");
         }
     }
 }

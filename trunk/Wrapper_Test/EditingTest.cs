@@ -22,10 +22,26 @@ namespace Wrapper_Test
             {
                 Console.WriteLine("Opening Geodatabase...");
                 GeodatabaseNet gdbnet = new GeodatabaseNet();
-                gdbnet.CreateGeodatabase(gdbpath);
+                gdbnet.OpenGeodatabase(gdbpath);
 
                 Console.WriteLine("Opening table");
                 TableNet table = gdbnet.OpenTable("\\Cities");
+
+                Console.WriteLine("Getting IsEditable property for the table");
+                bool isEditable = table.IsEditable();
+                if (!isEditable)
+                {
+                    Console.WriteLine("Cities table is not editable, exiting...");
+                    return;
+                }
+
+                Console.WriteLine("Getting table row count.");
+                int rowCount = table.GetRowCount();
+                Console.WriteLine("Table has " + rowCount + " rows");
+
+                Console.WriteLine("Getting table extent.");
+                EnvelopeNet extent = table.GetExtent();
+                Console.WriteLine(String.Format("Table Extent: {0}, {1}, {2}, {3}", extent.xMin, extent.yMin, extent.xMax, extent.yMax));
 
                 // TODO: ShapeBuffer doesn't work, will need to edit later on
                 //Console.WriteLine("Creating new row");
@@ -48,6 +64,9 @@ namespace Wrapper_Test
 
                 Console.WriteLine("Updating table to persist the edit.");
                 table.Update(avRow);
+
+                Console.WriteLine("Closing enumerator");
+                avQueryResult.Close();
 
                 Console.WriteLine("Performing a spatial query");
                 EnvelopeNet envelope = new EnvelopeNet(-117.4, 33.64, -116.8, 33.86);

@@ -25,7 +25,7 @@ namespace Wrapper_Test
                 gdbnet.OpenGeodatabase(gdbpath);
 
                 Console.WriteLine("Opening Cities table");
-                TableNet table = gdbnet.OpenTable("Cities");
+                TableNet table = gdbnet.OpenTable("\\Cities");
 
                 Console.WriteLine("Executing table search.");
                 EnumRowsNet attrQueryRows = table.Search("Shape, NAME, Pop1996", "TERM = 'City'", true);
