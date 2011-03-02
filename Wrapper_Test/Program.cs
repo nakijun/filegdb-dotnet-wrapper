@@ -42,6 +42,9 @@ namespace Wrapper_Test
                         case "7":
                             EditingTest.Run();
                             break;
+                        case "8":
+                            SchemaBrowsingTest.Run();
+                            break;
                         case "all":
                             RunAllTests();
                             break;
@@ -66,6 +69,7 @@ namespace Wrapper_Test
             QueryingTest.Run();
             SQLTest.Run();
             EditingTest.Run();
+            SchemaBrowsingTest.Run();
         }
 
         private static void WriteIntro()
@@ -78,6 +82,7 @@ namespace Wrapper_Test
             Console.WriteLine("5: Table Query (Search, EnumRows, Attribute Value)");
             Console.WriteLine("6: SQL Query (Execute SQL query, Enumerate rows)");
             Console.WriteLine("7: Editing (Update attribute, Delete rows)");
+            Console.WriteLine("8: Database Schema Browsing");
         }
     }
 }
