@@ -16,8 +16,8 @@ namespace FileGDB_DotNet
 {
 	void MarshalString(String^, std::wstring&);
 	void MarshalString(String^, std::string&);
-	void MarshalVector(std::vector<std::wstring>&, List<String^>^);
-	void MarshalVector(std::vector<std::string>&, List<String^>^);
+	List<String^>^ MarshalVector(std::vector<std::wstring>&);
+	List<String^>^ MarshalVector(std::vector<std::string>&);
 	System::Guid MarshalGuid(GUID& inguid);
 	GUID MarshalGuid(System::Guid& inguid);
 	System::DateTime MarshalDateTime(struct tm& indt);

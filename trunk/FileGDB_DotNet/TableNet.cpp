@@ -86,10 +86,7 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting indexes.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		List<String^>^ lIndexDefs;
-		MarshalVector(indexDefs, lIndexDefs);
-
-		return lIndexDefs;
+		return MarshalVector(indexDefs);
 	}
 
 	void TableNet::AddIndex(String^ indexDef)

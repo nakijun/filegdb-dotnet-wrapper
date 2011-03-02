@@ -23,26 +23,30 @@ namespace FileGDB_DotNet
 	   Marshal::FreeHGlobal(IntPtr((void*)chars));
 	}
 
-	void MarshalVector(std::vector<std::wstring>& invector, List<String^>^ outlist) 
+	List<String^>^ MarshalVector(std::vector<std::wstring>& invector) 
 	{
-		outlist = gcnew List<String^>();
+		List<String^>^ outlist = gcnew List<String^>();
 		vector<std::wstring>::iterator iter = invector.begin();
 		while (iter != invector.end()) {
 			std::wstring s = *iter;
 			outlist->Add(gcnew String(s.c_str()));
 			iter++;
 		}
+
+		return outlist;
 	}
 
-	void MarshalVector(std::vector<std::string>& invector, List<String^>^ outlist) 
+	List<String^>^ MarshalVector(std::vector<std::string>& invector) 
 	{
-		outlist = gcnew List<String^>();
+		List<String^>^ outlist = gcnew List<String^>();
 		vector<std::string>::iterator iter = invector.begin();
 		while (iter != invector.end()) {
 			std::string s = *iter;
 			outlist->Add(gcnew String(s.c_str()));
 			iter++;
 		}
+
+		return outlist;
 	}
 
 	Guid MarshalGuid(GUID& inguid)

@@ -65,9 +65,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting dataset types.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lDatasetTypes;
-		MarshalVector(datasetTypes, lDatasetTypes);
-		return lDatasetTypes;
+		return MarshalVector(datasetTypes);
 	}
 
 	List<String^>^ GeodatabaseNet::GetDatasetRelationshipTypes()
@@ -79,9 +77,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting dataset relationship types.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lDatasetRelTypes;
-		MarshalVector(datasetRelTypes, lDatasetRelTypes);
-		return lDatasetRelTypes;
+		return MarshalVector(datasetRelTypes);
 	}
 
 	List<String^>^ GeodatabaseNet::GetChildDatasets(String^ parentPath, String^ datasetType)
@@ -97,9 +93,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting child datasets.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lChildDatasets;
-		MarshalVector(childDatasets, lChildDatasets);
-		return lChildDatasets;
+		return MarshalVector(childDatasets);
 	}
 
 	List<String^>^ GeodatabaseNet::GetRelatedDatasets(String^ path, String^ relType, String^ datasetType)
@@ -115,9 +109,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting related datasets.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lRelDatasets;
-		MarshalVector(relDatasets, lRelDatasets);
-		return lRelDatasets;
+		return MarshalVector(relDatasets);
 	}
 
 #pragma endregion
@@ -153,9 +145,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting child datasets definitions.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lRelChildDatasetDefs;
-		MarshalVector(relChildDatasetDefs, lRelChildDatasetDefs);
-		return lRelChildDatasetDefs;
+		return MarshalVector(relChildDatasetDefs);
 	}
 
 	List<String^>^ GeodatabaseNet::GetRelatedDatasetDefinitions(String^ path, String^ relType, String^ datasetType)
@@ -171,9 +161,7 @@ namespace FileGDB_DotNet
 			throw gcnew Exception("Error getting related dataset definitions.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
 
-		List<String^>^ lRelDatasetDefs;
-		MarshalVector(relDatasetDefs, lRelDatasetDefs);
-		return lRelDatasetDefs;
+		return MarshalVector(relDatasetDefs);
 	}
 
 	String^ GeodatabaseNet::GetDatasetDocumentation(String^ path, String^ datasetType) 
