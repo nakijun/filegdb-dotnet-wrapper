@@ -10,6 +10,12 @@
 
 #include "FileGDB_API_1_0_beta2/include/FileGDBAPI.h"
 
+#include "GeometryNet.h"
+#include "PointNet.h"
+#include "PolylineNet.h"
+#include "PolygonNet.h"
+#include "MultiPointNet.h"
+
 using namespace std;
 using namespace System;
 using namespace Runtime::InteropServices;
@@ -28,6 +34,16 @@ namespace FileGDB_DotNet
 		}
 
 		FileGDBAPI::ShapeBuffer* fgdbApiShapeBuffer;
+
+	private:
+		PointNet^ GetPoint();
+		PolylineNet^ GetPolyline();
+		PolygonNet^ GetPolygon();
+		MultiPointNet^ GetMultipoint();
+		
+	public:
+		int GetShapeType();
+		GeometryNet^ GetGeometry();
 
 		bool Allocate(unsigned long length);
 

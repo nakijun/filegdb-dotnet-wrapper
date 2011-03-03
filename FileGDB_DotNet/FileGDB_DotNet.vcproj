@@ -45,6 +45,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
+				GenerateXMLDocumentationFiles="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -212,7 +213,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GeometryNet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Marshal.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MultiPointNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PointNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PolygonNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PolylineNet.cpp"
 				>
 			</File>
 			<File
@@ -294,7 +315,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GeometryNet.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Marshal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MultiPointNet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PointNet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PolygonNet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PolylineNet.h"
 				>
 			</File>
 			<File
