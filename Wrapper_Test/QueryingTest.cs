@@ -33,8 +33,6 @@ namespace Wrapper_Test
                 RowNet attrQueryRow;
                 string cityName;
                 long cityPop;
-                ShapeBufferNet geometry;
-                double x, y;
 
                 Console.WriteLine("Enumerating query results...");
                 while ((attrQueryRow = attrQueryRows.Next()) != null)
