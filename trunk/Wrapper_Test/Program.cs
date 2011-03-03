@@ -45,6 +45,9 @@ namespace Wrapper_Test
                         case "8":
                             SchemaBrowsingTest.Run();
                             break;
+                        case "9":
+                            ReadGeomsTest.Run();
+                            break;
                         case "all":
                             RunAllTests();
                             break;
@@ -70,6 +73,7 @@ namespace Wrapper_Test
             SQLTest.Run();
             EditingTest.Run();
             SchemaBrowsingTest.Run();
+            ReadGeomsTest.Run();
         }
 
         private static void WriteIntro()
@@ -83,6 +87,7 @@ namespace Wrapper_Test
             Console.WriteLine("6: SQL Query (Execute SQL query, Enumerate rows)");
             Console.WriteLine("7: Editing (Update attribute, Delete rows)");
             Console.WriteLine("8: Database Schema Browsing");
+            Console.WriteLine("9: Read Geometries (Points/Polylines/Polygons/MultiPoints)");
         }
     }
 }
