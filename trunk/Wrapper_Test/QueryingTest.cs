@@ -47,7 +47,7 @@ namespace Wrapper_Test
                 attrQueryRows.Close();
 
                 Console.WriteLine("Performing a spatial query.");
-                EnvelopeNet envelope = new EnvelopeNet(-66.0, 46.0, -64.0, 48.0);
+                EnvelopeNet envelope = new EnvelopeNet(-66.0, -64.0, 46.0, 48.0);
                 EnumRowsNet spQueryRows = table.Search("NAME", "", envelope, true);
 
                 Console.WriteLine("Enumerating spatial query results.");

@@ -17,14 +17,36 @@ namespace FileGDB_DotNet
 		PolylineNet() : GeometryNet(3)
 		{
 			this->Extent = gcnew EnvelopeNet();
-			this->NumParts = 0;
-			this->NumPoints = 0;
 			this->Parts = nullptr;
 		}
 
 		EnvelopeNet^ Extent;
-		int NumParts;
-		int NumPoints;
 		array<array<PointNet^>^>^ Parts;
+
+		property long NumParts {
+			long get() { 
+				if (this->Parts == nullptr) {
+					return 0;
+				} else {
+					return this->Parts->Length;
+				}
+			};
+		}
+
+		property long NumPoints {
+			long get() { 
+				if (this->Parts == nullptr) {
+					return 0;
+				} else {
+					long pts = 0;
+					for (long i=0; i<this->Parts->Length; i++) {
+						if (this->Parts[i] != nullptr)
+							pts += this->Parts[i]->Length;
+					}
+
+					return pts;
+				}
+			};
+		}
 	};
 }

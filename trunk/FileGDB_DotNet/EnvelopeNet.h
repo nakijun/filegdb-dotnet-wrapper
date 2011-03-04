@@ -20,8 +20,8 @@ namespace FileGDB_DotNet
 	public:
 		EnvelopeNet() : fgdbApiEnvelope(new FileGDBAPI::Envelope) {}
 
-		EnvelopeNet(double xmin, double ymin, double xmax, double ymax)
-			: fgdbApiEnvelope(new FileGDBAPI::Envelope(xmin, ymin, xmax, ymax))
+		EnvelopeNet(double xmin, double xmax, double ymin, double ymax)
+			: fgdbApiEnvelope(new FileGDBAPI::Envelope(xmin, xmax, ymin, ymax))
 		{
 		}
 

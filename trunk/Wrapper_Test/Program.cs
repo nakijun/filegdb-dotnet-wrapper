@@ -48,6 +48,9 @@ namespace Wrapper_Test
                         case "9":
                             ReadGeomsTest.Run();
                             break;
+                        case "10":
+                            WriteGeomsTest.Run();
+                            break;
                         case "all":
                             RunAllTests();
                             break;
@@ -74,6 +77,7 @@ namespace Wrapper_Test
             EditingTest.Run();
             SchemaBrowsingTest.Run();
             ReadGeomsTest.Run();
+            WriteGeomsTest.Run();
         }
 
         private static void WriteIntro()
@@ -88,6 +92,7 @@ namespace Wrapper_Test
             Console.WriteLine("7: Editing (Update attribute, Delete rows)");
             Console.WriteLine("8: Database Schema Browsing");
             Console.WriteLine("9: Read Geometries (Points/Polylines/Polygons/MultiPoints)");
+            Console.WriteLine("10: Write Geometries (Points/Polylines/Polygons/MultiPoints)");
         }
     }
 }
