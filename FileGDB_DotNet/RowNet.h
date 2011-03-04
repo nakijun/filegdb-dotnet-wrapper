@@ -37,7 +37,7 @@ namespace FileGDB_DotNet
 		long GetOID();
 		Guid^ GetGlobalID();
 		FileGDB_DotNet::ShapeBufferNet^ GetGeometry();
-		void SetGeometry(FileGDB_DotNet::ShapeBufferNet^ shapeBuffer);
+		void SetGeometry(FileGDB_DotNet::ShapeBufferNet^ val);
 		short GetShort(String^ field);
 		void SetShort(String^ field, short value);
 		long GetInteger(String^ field);

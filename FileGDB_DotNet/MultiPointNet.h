@@ -17,12 +17,20 @@ namespace FileGDB_DotNet
 		MultiPointNet() : GeometryNet(8)
 		{
 			this->Extent = gcnew EnvelopeNet();
-			this->NumPoints = 0;
 			this->Points = nullptr;
 		}
 
 		EnvelopeNet^ Extent;
-		int NumPoints;
 		array<PointNet^>^ Points;
+
+		property long NumPoints {
+			long get() { 
+				if (this->Points == nullptr) {
+					return 0;
+				} else {
+					return this->Points->Length;
+				}
+			};
+		}
 	};
 }

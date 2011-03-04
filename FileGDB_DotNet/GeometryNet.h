@@ -10,11 +10,11 @@ namespace FileGDB_DotNet
 	public ref class GeometryNet
 	{
 	public:
-		GeometryNet(int shapeType)
+		GeometryNet(long shapeType)
 		{
 			this->shapeType = shapeType;
 		}
 
-		int shapeType;
+		long shapeType;
 	};
 }

@@ -91,6 +91,7 @@
     <Compile Include="SQLTest.cs" />
     <Compile Include="TableSchemaInfoTest.cs" />
     <Compile Include="TableSchemaTest.cs" />
+    <Compile Include="WriteGeomsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

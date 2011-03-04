@@ -43,10 +43,6 @@ namespace Wrapper_Test
                 EnvelopeNet extent = table.GetExtent();
                 Console.WriteLine(String.Format("Table Extent: {0}, {1}, {2}, {3}", extent.xMin, extent.yMin, extent.xMax, extent.yMax));
 
-                // TODO: ShapeBuffer doesn't work, will need to edit later on
-                //Console.WriteLine("Creating new row");
-                //RowNet cabazonRow = table.CreateRowObject();
-
                 Console.WriteLine("Query table for AREANAME='Apple Valley' records");
                 EnumRowsNet avQueryResult = table.Search("*", "AREANAME = 'Apple Valley'", false);
 
@@ -69,7 +65,7 @@ namespace Wrapper_Test
                 avQueryResult.Close();
 
                 Console.WriteLine("Performing a spatial query");
-                EnvelopeNet envelope = new EnvelopeNet(-117.4, 33.64, -116.8, 33.86);
+                EnvelopeNet envelope = new EnvelopeNet(-117.4, -116.8, 33.64, 33.86);
                 EnumRowsNet deleteRows = table.Search("*", "", envelope, false);
 
                 Console.WriteLine("Enumerating spatial query result");
