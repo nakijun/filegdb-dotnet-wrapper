@@ -192,6 +192,8 @@ namespace FileGDB_DotNet
 			SetPolyline((PolylineNet^)geometry);
 		} else if (geometry->shapeType == 5) {
 			SetPolygon((PolygonNet^)geometry);
+		} else if (geometry->shapeType == 8) {
+			SetMultiPoint((MultiPointNet^)geometry);
 		} else {
 			throw gcnew Exception("Unsupported geometry type");
 		}
@@ -286,7 +288,7 @@ namespace FileGDB_DotNet
 		header.numPaths = numPaths;
 		header.numPoints = numPoints;
 
-		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKPolylineHeader));
+		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKPolygonHeader));
 		offset += sizeof(WKPolygonHeader);
 		
 		long pathIdx = 0;
@@ -306,6 +308,42 @@ namespace FileGDB_DotNet
 				memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset+numPaths*4+pointIdx, &y, sizeof(y));
 				pointIdx += 8;
 			}
+		}
+
+		this->fgdbApiShapeBuffer->inUseLength = totBytes;
+	}
+
+	void ShapeBufferNet::SetMultiPoint(MultiPointNet^ mp) 
+	{
+		long numPoints = mp->NumPoints;
+		long totBytes = sizeof(long) + sizeof(WKMultiPointHeader) + numPoints * sizeof(WKPoint);
+		// Allocate memory as necessary
+		if (this->fgdbApiShapeBuffer->allocatedLength != totBytes)
+			this->fgdbApiShapeBuffer->Allocate(totBytes);
+
+		long shapeType = mp->shapeType;
+		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
+		long offset = sizeof(shapeType);
+
+		WKMultiPointHeader header;
+		header.extent.xmin = mp->Extent->xMin;
+		header.extent.ymin = mp->Extent->yMin;
+		header.extent.xmax = mp->Extent->xMax;
+		header.extent.ymax = mp->Extent->yMax;
+		header.numPoints = numPoints;
+
+		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKMultiPointHeader));
+		offset += sizeof(WKMultiPointHeader);
+
+		double x,y;
+		for (long i=0; i<numPoints; i++) {
+			x = mp->Points[i]->x;
+			y = mp->Points[i]->y;
+
+			memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &x, sizeof(x));
+			offset += 8;
+			memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &y, sizeof(y));
+			offset += 8;
 		}
 
 		this->fgdbApiShapeBuffer->inUseLength = totBytes;

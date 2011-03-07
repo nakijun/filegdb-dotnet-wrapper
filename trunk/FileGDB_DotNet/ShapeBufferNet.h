@@ -41,9 +41,10 @@ namespace FileGDB_DotNet
 		PolygonNet^ GetPolygon();
 		MultiPointNet^ GetMultipoint();
 		
-		void ShapeBufferNet::SetPoint(PointNet^ point);
-		void ShapeBufferNet::SetPolyline(PolylineNet^ pline);
-		void ShapeBufferNet::SetPolygon(PolygonNet^ pgon);
+		void SetPoint(PointNet^ point);
+		void SetPolyline(PolylineNet^ pline);
+		void SetPolygon(PolygonNet^ pgon);
+		void SetMultiPoint(MultiPointNet^ mp) ;
 
 	public:
 		long GetShapeType();
