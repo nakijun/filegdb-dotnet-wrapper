@@ -18,6 +18,7 @@
 
 using namespace std;
 using namespace System;
+using namespace System::IO;
 using namespace Runtime::InteropServices;
 
 namespace FileGDB_DotNet 
@@ -30,7 +31,10 @@ namespace FileGDB_DotNet
 
 		~ShapeBufferNet() 
 		{
-			delete fgdbApiShapeBuffer;
+			delete this->fgdbApiShapeBuffer;
+
+			if (this->m_bytes != nullptr)
+				this->m_bytes->Close();
 		}
 
 		FileGDBAPI::ShapeBuffer* fgdbApiShapeBuffer;
@@ -55,19 +59,44 @@ namespace FileGDB_DotNet
 
 		property unsigned long allocatedLength
 		{
-			unsigned long get() { return fgdbApiShapeBuffer->allocatedLength; }
-			void set(unsigned long value) { fgdbApiShapeBuffer->allocatedLength = value; }
+			unsigned long get() { return this->fgdbApiShapeBuffer->allocatedLength; }
+			void set(unsigned long value) { this->fgdbApiShapeBuffer->allocatedLength = value; }
 		}
 
 		property unsigned long inUseLength
 		{
-			unsigned long get() { return fgdbApiShapeBuffer->inUseLength; }
-			void set(unsigned long value) { fgdbApiShapeBuffer->inUseLength = value; }
+			unsigned long get() { return this->fgdbApiShapeBuffer->inUseLength; }
+			void set(unsigned long value) { this->fgdbApiShapeBuffer->inUseLength = value; }
 		}
+
+		/// <summary>
+        ///   Returns the raw bytes as a memory stream
+        /// </summary>
+		property MemoryStream^ Bytes
+		{
+			MemoryStream^ get() {
+				if (this->m_bytes == nullptr) {
+					this->m_bytes = gcnew MemoryStream(this->fgdbApiShapeBuffer->allocatedLength);
+					// Read in the bytes
+					for (unsigned long i=0; i<this->fgdbApiShapeBuffer->inUseLength; i++) {
+						this->m_bytes->WriteByte(*(this->fgdbApiShapeBuffer->shapeBuffer+i));
+					}
+					this->m_bytes->Seek(0, SeekOrigin::Begin);
+				}
+
+				return this->m_bytes;
+			}
+		}
+
+	private:
+		MemoryStream^ m_bytes;
 
 	protected:
 		!ShapeBufferNet() {
-			delete fgdbApiShapeBuffer;
+			delete this->fgdbApiShapeBuffer;
+
+			if (this->m_bytes != nullptr)
+				this->m_bytes->Close();
 		}
 	};
 }

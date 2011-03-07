@@ -23,14 +23,14 @@ namespace FileGDB_DotNet
 
 		~RasterNet() 
 		{
-			delete fgdbApiRaster;
+			delete this->fgdbApiRaster;
 		}
 
 		FileGDBAPI::Raster* fgdbApiRaster;
 
 	protected:
 		!RasterNet() {
-			delete fgdbApiRaster;
+			delete this->fgdbApiRaster;
 		}
 	};
 }

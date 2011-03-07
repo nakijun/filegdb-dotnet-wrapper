@@ -84,10 +84,10 @@ namespace FileGDB_DotNet
 		
 		long offset = sizeof(long);
 		WKPolylineHeader* header = (WKPolylineHeader*)(this->fgdbApiShapeBuffer->shapeBuffer+offset);
-		pl->Extent->xMin = (*header).extent.xmin;
-		pl->Extent->yMin = (*header).extent.ymin;
-		pl->Extent->xMax = (*header).extent.xmax;
-		pl->Extent->yMax = (*header).extent.ymax;
+		pl->Extent->XMin = (*header).extent.xmin;
+		pl->Extent->YMin = (*header).extent.ymin;
+		pl->Extent->XMax = (*header).extent.xmax;
+		pl->Extent->YMax = (*header).extent.ymax;
 
 		offset += sizeof(WKPolylineHeader);
 		long numParts = (*header).numParts;
@@ -125,10 +125,10 @@ namespace FileGDB_DotNet
 		long offset = sizeof(long);
 
 		WKPolygonHeader* header = (WKPolygonHeader*)(this->fgdbApiShapeBuffer->shapeBuffer+offset);
-		pg->Extent->xMin = (*header).extent.xmin;
-		pg->Extent->yMin = (*header).extent.ymin;
-		pg->Extent->xMax = (*header).extent.xmax;
-		pg->Extent->yMax = (*header).extent.ymax;
+		pg->Extent->XMin = (*header).extent.xmin;
+		pg->Extent->YMin = (*header).extent.ymin;
+		pg->Extent->XMax = (*header).extent.xmax;
+		pg->Extent->YMax = (*header).extent.ymax;
 		long numPaths = (*header).numPaths;
 		long numPoints = (*header).numPoints;
 
@@ -165,10 +165,10 @@ namespace FileGDB_DotNet
 		
 		long offset = sizeof(long);
 		WKMultiPointHeader* header = (WKMultiPointHeader*)(this->fgdbApiShapeBuffer->shapeBuffer+offset);
-		mp->Extent->xMin = (*header).extent.xmin;
-		mp->Extent->yMin = (*header).extent.ymin;
-		mp->Extent->xMax = (*header).extent.xmax;
-		mp->Extent->yMax = (*header).extent.ymax;
+		mp->Extent->XMin = (*header).extent.xmin;
+		mp->Extent->YMin = (*header).extent.ymin;
+		mp->Extent->XMax = (*header).extent.xmax;
+		mp->Extent->YMax = (*header).extent.ymax;
 		long numPoints = (*header).numPoints;
 		offset += sizeof(WKMultiPointHeader);
 		
@@ -186,13 +186,13 @@ namespace FileGDB_DotNet
 
 	void ShapeBufferNet::SetGeometry(GeometryNet^ geometry) 
 	{
-		if (geometry->shapeType == 1) {
+		if (geometry->ShapeType == 1) {
 			SetPoint((PointNet^)geometry);
-		} else if (geometry->shapeType == 3) {
+		} else if (geometry->ShapeType == 3) {
 			SetPolyline((PolylineNet^)geometry);
-		} else if (geometry->shapeType == 5) {
+		} else if (geometry->ShapeType == 5) {
 			SetPolygon((PolygonNet^)geometry);
-		} else if (geometry->shapeType == 8) {
+		} else if (geometry->ShapeType == 8) {
 			SetMultiPoint((MultiPointNet^)geometry);
 		} else {
 			throw gcnew Exception("Unsupported geometry type");
@@ -205,9 +205,9 @@ namespace FileGDB_DotNet
 		if (this->fgdbApiShapeBuffer->allocatedLength != 20)
 			this->fgdbApiShapeBuffer->Allocate(20);
 
-		long shapeType = point->shapeType;
-		double x = point->x;
-		double y = point->y;
+		long shapeType = point->ShapeType;
+		double x = point->X;
+		double y = point->Y;
 
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+sizeof(shapeType), &x, sizeof(x));
@@ -226,16 +226,16 @@ namespace FileGDB_DotNet
 			this->fgdbApiShapeBuffer->Allocate(totBytes);
 
 		// Copy the shape type
-		long shapeType = pline->shapeType;
+		long shapeType = pline->ShapeType;
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		long offset = sizeof(long);
 
 		// Copy the Extent
 		WKPolylineHeader header;
-		header.extent.xmin = pline->Extent->xMin;
-		header.extent.ymin = pline->Extent->yMin;
-		header.extent.xmax = pline->Extent->xMax;
-		header.extent.ymax = pline->Extent->yMax;
+		header.extent.xmin = pline->Extent->XMin;
+		header.extent.ymin = pline->Extent->YMin;
+		header.extent.xmax = pline->Extent->XMax;
+		header.extent.ymax = pline->Extent->YMax;
 		header.numParts = numParts;
 		header.numPoints = numPoints;
 
@@ -251,8 +251,8 @@ namespace FileGDB_DotNet
 
 			// Copy the points for this part
 			for (long j=0; j<pline->Parts[i]->Length; j++) {
-				x = pline->Parts[i][j]->x;
-				y = pline->Parts[i][j]->y;
+				x = pline->Parts[i][j]->X;
+				y = pline->Parts[i][j]->Y;
 
 				memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset+numParts*4+pointIdx, &x, sizeof(x));
 				pointIdx += 8;
@@ -276,15 +276,15 @@ namespace FileGDB_DotNet
 			this->fgdbApiShapeBuffer->Allocate(totBytes);
 
 		// Copy the shape type
-		long shapeType = pgon->shapeType;
+		long shapeType = pgon->ShapeType;
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		long offset = sizeof(shapeType);
 
 		WKPolygonHeader header;
-		header.extent.xmin = pgon->Extent->xMin;
-		header.extent.ymin = pgon->Extent->yMin;
-		header.extent.xmax = pgon->Extent->xMax;
-		header.extent.ymax = pgon->Extent->yMax;
+		header.extent.xmin = pgon->Extent->XMin;
+		header.extent.ymin = pgon->Extent->YMin;
+		header.extent.xmax = pgon->Extent->XMax;
+		header.extent.ymax = pgon->Extent->YMax;
 		header.numPaths = numPaths;
 		header.numPoints = numPoints;
 
@@ -300,8 +300,8 @@ namespace FileGDB_DotNet
 
 			// Copy the points for this part
 			for (long j=0; j<pgon->Paths[i]->Length; j++) {
-				x = pgon->Paths[i][j]->x;
-				y = pgon->Paths[i][j]->y;
+				x = pgon->Paths[i][j]->X;
+				y = pgon->Paths[i][j]->Y;
 
 				memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset+numPaths*4+pointIdx, &x, sizeof(x));
 				pointIdx += 8;
@@ -321,15 +321,15 @@ namespace FileGDB_DotNet
 		if (this->fgdbApiShapeBuffer->allocatedLength != totBytes)
 			this->fgdbApiShapeBuffer->Allocate(totBytes);
 
-		long shapeType = mp->shapeType;
+		long shapeType = mp->ShapeType;
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		long offset = sizeof(shapeType);
 
 		WKMultiPointHeader header;
-		header.extent.xmin = mp->Extent->xMin;
-		header.extent.ymin = mp->Extent->yMin;
-		header.extent.xmax = mp->Extent->xMax;
-		header.extent.ymax = mp->Extent->yMax;
+		header.extent.xmin = mp->Extent->XMin;
+		header.extent.ymin = mp->Extent->YMin;
+		header.extent.xmax = mp->Extent->XMax;
+		header.extent.ymax = mp->Extent->YMax;
 		header.numPoints = numPoints;
 
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKMultiPointHeader));
@@ -337,8 +337,8 @@ namespace FileGDB_DotNet
 
 		double x,y;
 		for (long i=0; i<numPoints; i++) {
-			x = mp->Points[i]->x;
-			y = mp->Points[i]->y;
+			x = mp->Points[i]->X;
+			y = mp->Points[i]->Y;
 
 			memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &x, sizeof(x));
 			offset += 8;

@@ -27,7 +27,7 @@ namespace FileGDB_DotNet
 
 		~TableNet() 
 		{
-			delete fgdbApiTable;
+			delete this->fgdbApiTable;
 		}
 
 		FileGDBAPI::Table* fgdbApiTable;
@@ -69,7 +69,7 @@ namespace FileGDB_DotNet
 
 	protected:
 		!TableNet() {
-			delete fgdbApiTable;
+			delete this->fgdbApiTable;
 		}
 	};
 }

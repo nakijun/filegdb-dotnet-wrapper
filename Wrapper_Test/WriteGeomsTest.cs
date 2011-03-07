@@ -4,6 +4,7 @@
 
 
 using System;
+using System.IO;
 using FileGDB_DotNet;
 
 namespace Wrapper_Test
@@ -23,7 +24,7 @@ namespace Wrapper_Test
                 GeodatabaseNet gdbnet = new GeodatabaseNet();
                 gdbnet.OpenGeodatabase(gdbpath);
 
-                //EditPoints(gdbnet);
+                EditPoints(gdbnet);
                 EditPolylines(gdbnet);
 
                 Console.WriteLine("Closing geodatabase");
@@ -57,12 +58,12 @@ namespace Wrapper_Test
                 ShapeBufferNet shpBuffer = row.GetGeometry();
                 PointNet pt = (PointNet)shpBuffer.GetGeometry();
                 Console.WriteLine("City Found, Geometry details:");
-                Console.WriteLine(String.Format("X: {0}  Y: {1}", pt.x, pt.y));
+                Console.WriteLine(String.Format("X: {0}  Y: {1}", pt.X, pt.Y));
 
                 Console.WriteLine();
-                pt.x += 10;
-                pt.y += 5;
-                Console.WriteLine(String.Format("Offsetting X by 10 degrees, Y by 5 degrees.  New X/Y should be: {0}, {1}", pt.x, pt.y));
+                pt.X += 10;
+                pt.Y += 5;
+                Console.WriteLine(String.Format("Offsetting X by 10 degrees, Y by 5 degrees.  New X/Y should be: {0}, {1}", pt.X, pt.Y));
 
                 Console.WriteLine("Updating geometry in shape buffer");
                 shpBuffer.SetGeometry(pt);
@@ -87,7 +88,7 @@ namespace Wrapper_Test
             {
                 ShapeBufferNet shpBuffer = updatedRow.GetGeometry();
                 PointNet pt = (PointNet)shpBuffer.GetGeometry();
-                Console.WriteLine(String.Format("Updated Geometry Details: X: {0}  Y: {1}", pt.x, pt.y));
+                Console.WriteLine(String.Format("Updated Geometry Details: X: {0}  Y: {1}", pt.X, pt.Y));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -119,11 +120,11 @@ namespace Wrapper_Test
 
                 Console.WriteLine();
                 PointNet pt1 = pl.Parts[0][0];
-                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.x, pt1.y));
+                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.X, pt1.Y));
 
                 Console.WriteLine("Offsetting first point X by 10, Y by 5.");
-                pl.Parts[0][0].x += 10;
-                pl.Parts[0][0].y += 5;
+                pl.Parts[0][0].X += 10;
+                pl.Parts[0][0].Y += 5;
 
                 Console.WriteLine("Updating geometry in shape buffer");
                 shpBuffer.SetGeometry(pl);
@@ -152,7 +153,7 @@ namespace Wrapper_Test
                 Console.WriteLine(String.Format("Number of parts: {0}  Number of points: {1}", pl.NumParts, pl.NumPoints));
 
                 PointNet pt1 = pl.Parts[0][0];
-                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.x, pt1.y));
+                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.X, pt1.Y));
             }
 
             Console.WriteLine("Closing enumerator.");

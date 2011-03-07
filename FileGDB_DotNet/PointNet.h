@@ -18,11 +18,11 @@ namespace FileGDB_DotNet
 
 		PointNet(double x, double y) : GeometryNet(1)
 		{
-			this->x = x;
-			this->y = y;
+			this->X = x;
+			this->Y = y;
 		}
 
-		double x;
-		double y;
+		double X;
+		double Y;
 	};
 }
