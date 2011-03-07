@@ -13,7 +13,7 @@ namespace Wrapper_Test
     {
         public static void Run()
         {
-            string gdbpath = "..\\..\\data\\ExecuteSQL.gdb";
+            string gdbpath = "..\\data\\ExecuteSQL.gdb";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Table Schema Info Test *****");
