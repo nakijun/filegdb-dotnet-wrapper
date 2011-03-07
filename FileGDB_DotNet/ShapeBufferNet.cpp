@@ -9,34 +9,49 @@
 
 namespace FileGDB_DotNet 
 {
+#pragma pack(push)
+#pragma pack(8)
 	struct WKPoint {
 		double x;
 		double y;
 	};
+#pragma pack(pop)
 
+#pragma pack(push)
+#pragma pack(8)
 	struct WKEnvelope {
 		double xmin;
 		double ymin;
 		double xmax;
 		double ymax;
 	};
+#pragma pack(pop)
 
+#pragma pack(push)
+#pragma pack(4)
 	struct WKPolylineHeader {
 		WKEnvelope extent;
 		long numParts;
 		long numPoints;
 	};
+#pragma pack(pop)
 
+#pragma pack(push)
+#pragma pack(4)
 	struct WKPolygonHeader {
 		WKEnvelope extent;
 		long numPaths;
 		long numPoints;
 	};
+#pragma pack(pop)
 
+#pragma pack(push)
+#pragma pack(4)
 	struct WKMultiPointHeader {
 		WKEnvelope extent;
 		long numPoints;
 	};
+#pragma pack(pop)
 
 	bool ShapeBufferNet::Allocate(unsigned long length)
 	{
@@ -206,12 +221,13 @@ namespace FileGDB_DotNet
 			this->fgdbApiShapeBuffer->Allocate(20);
 
 		long shapeType = point->ShapeType;
-		double x = point->X;
-		double y = point->Y;
-
+		WKPoint pt = {
+			point->X,
+			point->Y
+		};
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
-		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+sizeof(shapeType), &x, sizeof(x));
-		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+sizeof(shapeType)+sizeof(x), &y, sizeof(y));
+		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+sizeof(shapeType), &pt, sizeof(WKPoint));
+		this->fgdbApiShapeBuffer->inUseLength = 20;
 	}
 
 	void ShapeBufferNet::SetPolyline(PolylineNet^ pline) 
@@ -231,13 +247,14 @@ namespace FileGDB_DotNet
 		long offset = sizeof(long);
 
 		// Copy the Extent
-		WKPolylineHeader header;
-		header.extent.xmin = pline->Extent->XMin;
-		header.extent.ymin = pline->Extent->YMin;
-		header.extent.xmax = pline->Extent->XMax;
-		header.extent.ymax = pline->Extent->YMax;
-		header.numParts = numParts;
-		header.numPoints = numPoints;
+		WKPolylineHeader header = {
+			pline->Extent->XMin,
+			pline->Extent->YMin,
+			pline->Extent->XMax,
+			pline->Extent->YMax,
+			numParts,
+			numPoints
+		};
 
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKPolylineHeader));
 		offset += sizeof(WKPolylineHeader);
@@ -259,6 +276,8 @@ namespace FileGDB_DotNet
 				memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset+numParts*4+pointIdx, &y, sizeof(y));
 				pointIdx += 8;
 			}
+
+			partIdx += pline->Parts[i]->Length;
 		}
 
 		this->fgdbApiShapeBuffer->inUseLength = totBytes;
@@ -280,13 +299,14 @@ namespace FileGDB_DotNet
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		long offset = sizeof(shapeType);
 
-		WKPolygonHeader header;
-		header.extent.xmin = pgon->Extent->XMin;
-		header.extent.ymin = pgon->Extent->YMin;
-		header.extent.xmax = pgon->Extent->XMax;
-		header.extent.ymax = pgon->Extent->YMax;
-		header.numPaths = numPaths;
-		header.numPoints = numPoints;
+		WKPolygonHeader header = {
+			pgon->Extent->XMin,
+			pgon->Extent->YMin,
+			pgon->Extent->XMax,
+			pgon->Extent->YMax,
+			numPaths,
+			numPoints
+		};
 
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKPolygonHeader));
 		offset += sizeof(WKPolygonHeader);
@@ -308,6 +328,8 @@ namespace FileGDB_DotNet
 				memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset+numPaths*4+pointIdx, &y, sizeof(y));
 				pointIdx += 8;
 			}
+
+			pathIdx += pgon->Paths[i]->Length;
 		}
 
 		this->fgdbApiShapeBuffer->inUseLength = totBytes;
@@ -316,6 +338,12 @@ namespace FileGDB_DotNet
 	void ShapeBufferNet::SetMultiPoint(MultiPointNet^ mp) 
 	{
 		long numPoints = mp->NumPoints;
+		long szLong = sizeof(long);
+		long szMP = sizeof(WKMultiPointHeader);
+		long szPt = sizeof(WKPoint);
+		long szEnv = sizeof(WKEnvelope);
+		long szPts = numPoints * sizeof(WKPoint);
+		long totBytes1 = szLong + szMP + szPts;
 		long totBytes = sizeof(long) + sizeof(WKMultiPointHeader) + numPoints * sizeof(WKPoint);
 		// Allocate memory as necessary
 		if (this->fgdbApiShapeBuffer->allocatedLength != totBytes)
@@ -325,12 +353,13 @@ namespace FileGDB_DotNet
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer, &shapeType, sizeof(shapeType));
 		long offset = sizeof(shapeType);
 
-		WKMultiPointHeader header;
-		header.extent.xmin = mp->Extent->XMin;
-		header.extent.ymin = mp->Extent->YMin;
-		header.extent.xmax = mp->Extent->XMax;
-		header.extent.ymax = mp->Extent->YMax;
-		header.numPoints = numPoints;
+		WKMultiPointHeader header = {
+			mp->Extent->XMin,
+			mp->Extent->YMin,
+			mp->Extent->XMax,
+			mp->Extent->YMax,
+			numPoints
+		};
 
 		memcpy(this->fgdbApiShapeBuffer->shapeBuffer+offset, &header, sizeof(WKMultiPointHeader));
 		offset += sizeof(WKMultiPointHeader);
