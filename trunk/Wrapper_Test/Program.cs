@@ -51,6 +51,9 @@ namespace Wrapper_Test
                         case "10":
                             WriteGeomsTest.Run();
                             break;
+                        case "11":
+                            PerformanceTest.Run();
+                            break;
                         case "all":
                             RunAllTests();
                             break;
@@ -78,6 +81,7 @@ namespace Wrapper_Test
             SchemaBrowsingTest.Run();
             ReadGeomsTest.Run();
             WriteGeomsTest.Run();
+            PerformanceTest.Run();
         }
 
         private static void WriteIntro()
@@ -93,6 +97,7 @@ namespace Wrapper_Test
             Console.WriteLine("8: Database Schema Browsing");
             Console.WriteLine("9: Read Geometries (Points/Polylines/Polygons/MultiPoints)");
             Console.WriteLine("10: Write Geometries (Points/Polylines/Polygons/MultiPoints)");
+            Console.WriteLine("11: Performance test (Read/Write/Delete all geometries)");
         }
     }
 }

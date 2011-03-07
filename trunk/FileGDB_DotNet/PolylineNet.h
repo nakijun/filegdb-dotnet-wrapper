@@ -23,6 +23,8 @@ namespace FileGDB_DotNet
 		EnvelopeNet^ Extent;
 		array<array<PointNet^>^>^ Parts;
 
+		void UpdateExtent();
+
 		property long NumParts {
 			long get() { 
 				if (this->Parts == nullptr) {

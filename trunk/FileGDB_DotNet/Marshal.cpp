@@ -72,13 +72,17 @@ namespace FileGDB_DotNet
 
 	struct tm MarshalDateTime(System::DateTime& indt)
 	{
-		struct tm outdt;
-		outdt.tm_year = indt.Year - 1900;
-		outdt.tm_mon = indt.Month - 1;
-		outdt.tm_mday = indt.Day;
-		outdt.tm_hour = indt.Hour;
-		outdt.tm_min = indt.Minute;
-		outdt.tm_sec = indt.Second;
+		struct tm outdt = {
+			indt.Second,
+			indt.Minute,
+			indt.Hour,
+			indt.Day,
+			indt.Month - 1,
+			indt.Year - 1900,
+			0,
+			0,
+			-1
+		};
 
 		return outdt;
 	}

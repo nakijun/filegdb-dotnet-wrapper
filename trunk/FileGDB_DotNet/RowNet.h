@@ -39,25 +39,25 @@ namespace FileGDB_DotNet
 		FileGDB_DotNet::ShapeBufferNet^ GetGeometry();
 		void SetGeometry(FileGDB_DotNet::ShapeBufferNet^ val);
 		short GetShort(String^ field);
-		void SetShort(String^ field, short value);
+		void SetShort(String^ field, short val);
 		long GetInteger(String^ field);
-		void SetInteger(String^ field, long value);
+		void SetInteger(String^ field, long val);
 		float GetFloat(String^ field);
-		void SetFloat(String^ field, float value);
+		void SetFloat(String^ field, float val);
 		double GetDouble(String^ field);
-		void SetDouble(String^ field, double value);
+		void SetDouble(String^ field, double val);
 		System::DateTime^ GetDate(String^ field);
-		void SetDate(String^ field, System::DateTime value);
+		void SetDate(String^ field, System::DateTime val);
 		String^ GetString(String^ field);
-		void SetString(String^ field, String^ value);
+		void SetString(String^ field, String^ val);
 		Guid^ GetGUID(String^ field);
-		void SetGUID(String^ field, Guid value);
+		void SetGUID(String^ field, Guid val);
 		String^ GetXML(String^ field);
-		void SetXML(String^ field, String^ value);
+		void SetXML(String^ field, String^ val);
 		FileGDB_DotNet::RasterNet^ GetRaster(String^ field);
-		void SetRaster(String^ field, FileGDB_DotNet::RasterNet^ value);
+		void SetRaster(String^ field, FileGDB_DotNet::RasterNet^ val);
 		FileGDB_DotNet::ByteArrayNet^ GetBinary(String^ field);
-		void SetBinary(String^ field, FileGDB_DotNet::ByteArrayNet^ value);
+		void SetBinary(String^ field, FileGDB_DotNet::ByteArrayNet^ val);
 
 	protected:
 		!RowNet() {

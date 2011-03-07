@@ -23,6 +23,8 @@ namespace FileGDB_DotNet
 		EnvelopeNet^ Extent;
 		array<array<PointNet^>^>^ Paths;
 
+		void UpdateExtent();
+
 		property long NumPaths {
 			long get() { 
 				if (this->Paths == nullptr) {
