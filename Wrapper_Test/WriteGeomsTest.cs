@@ -13,7 +13,7 @@ namespace Wrapper_Test
     {
         public static void Run()
         {
-            string gdbpath = "..\\..\\data\\Geometries.gdb";
+            string gdbpath = "..\\data\\Geometries.gdb";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Write Geometries Test *****");

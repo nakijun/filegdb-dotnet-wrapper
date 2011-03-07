@@ -90,8 +90,8 @@ namespace Wrapper_Test
 
         public static void Run()
         {
-            string gdbpath = "..\\..\\data\\tableschematest.gdb";
-            string fcdefpath = "..\\..\\data\\Streets.xml";
+            string gdbpath = "..\\data\\tableschematest.gdb";
+            string fcdefpath = "..\\data\\Streets.xml";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Table Schema Test *****");
