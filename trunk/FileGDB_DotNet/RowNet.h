@@ -27,7 +27,7 @@ namespace FileGDB_DotNet
 
 		~RowNet() 
 		{
-			delete fgdbApiRow;
+			delete this->fgdbApiRow;
 		}
 
 		FileGDBAPI::Row* fgdbApiRow;
@@ -61,7 +61,7 @@ namespace FileGDB_DotNet
 
 	protected:
 		!RowNet() {
-			delete fgdbApiRow;
+			delete this->fgdbApiRow;
 		}
 	};
 }

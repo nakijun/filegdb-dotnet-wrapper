@@ -31,7 +31,7 @@ namespace FileGDB_DotNet
 
 		~GeodatabaseNet() 
 		{
-			delete m_geodatabase;
+			delete this->m_geodatabase;
 		}
 
 #pragma region "Geodatabase Management"
@@ -95,7 +95,7 @@ namespace FileGDB_DotNet
 
 	protected:
 		!GeodatabaseNet() {
-			delete m_geodatabase;
+			delete this->m_geodatabase;
 		}
 	};
 }

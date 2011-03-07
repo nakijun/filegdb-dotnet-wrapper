@@ -20,7 +20,7 @@ namespace FileGDB_DotNet
 
 		~EnumRowsNet() 
 		{
-			delete fgdbApiEnumRows;
+			delete this->fgdbApiEnumRows;
 		}
 
 		FileGDBAPI::EnumRows* fgdbApiEnumRows;
@@ -30,7 +30,7 @@ namespace FileGDB_DotNet
 
 	protected:
 		!EnumRowsNet() {
-			delete fgdbApiEnumRows;
+			delete this->fgdbApiEnumRows;
 		}
 	};
 }

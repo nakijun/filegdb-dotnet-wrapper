@@ -12,9 +12,9 @@ namespace FileGDB_DotNet
 	public:
 		GeometryNet(long shapeType)
 		{
-			this->shapeType = shapeType;
+			this->ShapeType = shapeType;
 		}
 
-		long shapeType;
+		long ShapeType;
 	};
 }

@@ -12,11 +12,11 @@ namespace FileGDB_DotNet
 {
 	bool EnvelopeNet::IsEmpty() 
 	{
-		return fgdbApiEnvelope->IsEmpty();
+		return this->fgdbApiEnvelope->IsEmpty();
 	}
 
 	void EnvelopeNet::SetEmpty()
 	{
-		fgdbApiEnvelope->SetEmpty();
+		this->fgdbApiEnvelope->SetEmpty();
 	}
 }

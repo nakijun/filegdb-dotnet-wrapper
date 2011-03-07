@@ -60,7 +60,7 @@ namespace Wrapper_Test
                 shpBuffer = row.GetGeometry();
                 point = (PointNet) shpBuffer.GetGeometry();
 
-                Console.WriteLine(String.Format("X: {0}  Y: {1}", point.x, point.y));
+                Console.WriteLine(String.Format("X: {0}  Y: {1}", point.X, point.Y));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -88,7 +88,7 @@ namespace Wrapper_Test
                 shpBuffer = row.GetGeometry();
                 line = (PolylineNet)shpBuffer.GetGeometry();
 
-                Console.WriteLine(String.Format("Polyline extent: {0}, {1}, {2}, {3}", line.Extent.xMin, line.Extent.yMin, line.Extent.xMax, line.Extent.yMax));
+                Console.WriteLine(String.Format("Polyline extent: {0}, {1}, {2}, {3}", line.Extent.XMin, line.Extent.YMin, line.Extent.XMax, line.Extent.YMax));
                 Console.WriteLine(String.Format("Number of Parts: {0}  Number of Points: {1}", line.NumParts, line.NumPoints));
             }
 
@@ -116,7 +116,7 @@ namespace Wrapper_Test
                 shpBuffer = row.GetGeometry();
                 pgon = (PolygonNet)shpBuffer.GetGeometry();
 
-                Console.WriteLine(String.Format("Polygon extent: {0}, {1}, {2}, {3}", pgon.Extent.xMin, pgon.Extent.yMin, pgon.Extent.xMax, pgon.Extent.yMax));
+                Console.WriteLine(String.Format("Polygon extent: {0}, {1}, {2}, {3}", pgon.Extent.XMin, pgon.Extent.YMin, pgon.Extent.XMax, pgon.Extent.YMax));
                 Console.WriteLine(String.Format("Number of Paths: {0}  Number of Points: {1}", pgon.NumPaths, pgon.NumPoints));
             }
 

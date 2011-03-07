@@ -14,7 +14,7 @@ namespace FileGDB_DotNet
 	{
 		RowNet^ netrow = gcnew RowNet();
 		long hr;
-		if ((hr = fgdbApiEnumRows->Next(*netrow->fgdbApiRow)) != S_OK) {
+		if ((hr = this->fgdbApiEnumRows->Next(*netrow->fgdbApiRow)) != S_OK) {
 			if (hr == 1)
 				return nullptr;
 			else
@@ -26,6 +26,6 @@ namespace FileGDB_DotNet
 
 	void EnumRowsNet::Close()
 	{
-		fgdbApiEnumRows->Close();
+		this->fgdbApiEnumRows->Close();
 	}
 }

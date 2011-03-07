@@ -17,7 +17,7 @@ namespace FileGDB_DotNet
 		
 		bool val;
 		long hr;
-		if ((hr = fgdbApiRow->IsNull(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->IsNull(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -30,7 +30,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetNull(wField)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetNull(wField)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -39,7 +39,7 @@ namespace FileGDB_DotNet
 	{
 		long val;
 		long hr;
-		if ((hr = fgdbApiRow->GetOID(val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetOID(val)) != S_OK) {
 			throw gcnew FGDBException("Error getting OID.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -50,7 +50,7 @@ namespace FileGDB_DotNet
 	{
 		GUID val;
 		long hr;
-		if ((hr = fgdbApiRow->GetGlobalID(val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetGlobalID(val)) != S_OK) {
 			throw gcnew Exception("Error getting Global ID.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")");
 		}
 
@@ -61,7 +61,7 @@ namespace FileGDB_DotNet
 	{
 		ShapeBufferNet^ outsb = gcnew ShapeBufferNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetGeometry(*outsb->fgdbApiShapeBuffer)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetGeometry(*outsb->fgdbApiShapeBuffer)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -71,7 +71,7 @@ namespace FileGDB_DotNet
 	void RowNet::SetGeometry(ShapeBufferNet^ val) 
 	{
 		long hr;
-		if ((hr = fgdbApiRow->SetGeometry(*val->fgdbApiShapeBuffer)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetGeometry(*val->fgdbApiShapeBuffer)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -83,7 +83,7 @@ namespace FileGDB_DotNet
 
 		short val;
 		long hr;
-		if ((hr = fgdbApiRow->GetShort(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetShort(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -96,7 +96,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetShort(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetShort(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -108,7 +108,7 @@ namespace FileGDB_DotNet
 
 		long val;
 		long hr;
-		if ((hr = fgdbApiRow->GetInteger(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetInteger(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -121,7 +121,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetInteger(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetInteger(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -133,7 +133,7 @@ namespace FileGDB_DotNet
 
 		float val;
 		long hr;
-		if ((hr = fgdbApiRow->GetFloat(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetFloat(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -146,7 +146,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetFloat(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetFloat(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -158,7 +158,7 @@ namespace FileGDB_DotNet
 
 		double val;
 		long hr;
-		if ((hr = fgdbApiRow->GetDouble(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetDouble(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -171,7 +171,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetDouble(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetDouble(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -183,7 +183,7 @@ namespace FileGDB_DotNet
 
 		struct tm val;
 		long hr;
-		if ((hr = fgdbApiRow->GetDate(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetDate(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -197,7 +197,7 @@ namespace FileGDB_DotNet
 		struct tm dtval = MarshalDateTime(val);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetDate(wField, dtval)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetDate(wField, dtval)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -209,7 +209,7 @@ namespace FileGDB_DotNet
 
 		std::wstring val;
 		long hr;
-		if ((hr = fgdbApiRow->GetString(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetString(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -224,7 +224,7 @@ namespace FileGDB_DotNet
 		MarshalString(val, wVal);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetString(wField, wVal)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetString(wField, wVal)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -236,7 +236,7 @@ namespace FileGDB_DotNet
 
 		GUID val;
 		long hr;
-		if ((hr = fgdbApiRow->GetGUID(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetGUID(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -250,7 +250,7 @@ namespace FileGDB_DotNet
 		GUID guidval = MarshalGuid(val);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetGUID(wField, guidval)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetGUID(wField, guidval)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -262,7 +262,7 @@ namespace FileGDB_DotNet
 
 		std::string val;
 		long hr;
-		if ((hr = fgdbApiRow->GetXML(wField, val)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetXML(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -278,7 +278,7 @@ namespace FileGDB_DotNet
 		MarshalString(val, sVal);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetXML(wField, sVal)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetXML(wField, sVal)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -290,7 +290,7 @@ namespace FileGDB_DotNet
 
 		RasterNet^ outraster = gcnew RasterNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetRaster(wField, *outraster->fgdbApiRaster)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetRaster(wField, *outraster->fgdbApiRaster)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -303,7 +303,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetRaster(wField, *val->fgdbApiRaster)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetRaster(wField, *val->fgdbApiRaster)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
@@ -315,7 +315,7 @@ namespace FileGDB_DotNet
 
 		ByteArrayNet^ outba = gcnew ByteArrayNet();
 		long hr;
-		if ((hr = fgdbApiRow->GetBinary(wField, *outba->fgdbApiByteArray)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetBinary(wField, *outba->fgdbApiByteArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -328,7 +328,7 @@ namespace FileGDB_DotNet
 		MarshalString(field, wField);
 
 		long hr;
-		if ((hr = fgdbApiRow->SetBinary(wField, *val->fgdbApiByteArray)) != S_OK) {
+		if ((hr = this->fgdbApiRow->SetBinary(wField, *val->fgdbApiByteArray)) != S_OK) {
 			throw gcnew FGDBException("Error setting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}

@@ -27,7 +27,7 @@ namespace FileGDB_DotNet
 
 		~EnvelopeNet() 
 		{
-			delete fgdbApiEnvelope;
+			delete this->fgdbApiEnvelope;
 		}
 
 		FileGDBAPI::Envelope* fgdbApiEnvelope;
@@ -35,33 +35,33 @@ namespace FileGDB_DotNet
 		bool IsEmpty();
 		void SetEmpty();
 
-		property double xMin 
+		property double XMin 
 		{
-			double get() { return fgdbApiEnvelope->xMin; }
-			void set(double value) { fgdbApiEnvelope->xMin = value; }
+			double get() { return this->fgdbApiEnvelope->xMin; }
+			void set(double value) { this->fgdbApiEnvelope->xMin = value; }
 		}
 
-		property double yMin 
+		property double YMin 
 		{
-			double get() { return fgdbApiEnvelope->yMin; }
-			void set(double value) { fgdbApiEnvelope->yMin = value; }
+			double get() { return this->fgdbApiEnvelope->yMin; }
+			void set(double value) { this->fgdbApiEnvelope->yMin = value; }
 		}
 
-		property double xMax 
+		property double XMax 
 		{
-			double get() { return fgdbApiEnvelope->xMax; }
-			void set(double value) { fgdbApiEnvelope->xMax = value; }
+			double get() { return this->fgdbApiEnvelope->xMax; }
+			void set(double value) { this->fgdbApiEnvelope->xMax = value; }
 		}
 
-		property double yMax 
+		property double YMax 
 		{
-			double get() { return fgdbApiEnvelope->yMax; }
-			void set(double value) { fgdbApiEnvelope->yMax = value; }
+			double get() { return this->fgdbApiEnvelope->yMax; }
+			void set(double value) { this->fgdbApiEnvelope->yMax = value; }
 		}
 
 	protected:
 		!EnvelopeNet() {
-			delete fgdbApiEnvelope;
+			delete this->fgdbApiEnvelope;
 		}
 	};
 }

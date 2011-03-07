@@ -14,12 +14,12 @@ namespace FileGDB_DotNet
 	public:
 		FGDBException(System::String^ message, long hr) : System::Exception(message)
 		{
-			m_errorCode = hr;
+			this->m_errorCode = hr;
 		}
 
 		property long ErrorCode
 		{
-			long get() { return m_errorCode; }
+			long get() { return this->m_errorCode; }
 		}
 	};
 }

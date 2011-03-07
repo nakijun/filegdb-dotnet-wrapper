@@ -41,7 +41,7 @@ namespace Wrapper_Test
 
                 Console.WriteLine("Getting table extent.");
                 EnvelopeNet extent = table.GetExtent();
-                Console.WriteLine(String.Format("Table Extent: {0}, {1}, {2}, {3}", extent.xMin, extent.yMin, extent.xMax, extent.yMax));
+                Console.WriteLine(String.Format("Table Extent: {0}, {1}, {2}, {3}", extent.XMin, extent.YMin, extent.XMax, extent.YMax));
 
                 Console.WriteLine("Query table for AREANAME='Apple Valley' records");
                 EnumRowsNet avQueryResult = table.Search("*", "AREANAME = 'Apple Valley'", false);
