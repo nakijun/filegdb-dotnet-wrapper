@@ -25,11 +25,11 @@ namespace Wrapper_Test
                 GeodatabaseNet gdbnet = new GeodatabaseNet();
                 gdbnet.OpenGeodatabase(gdbpath);
 
-                //TestPoints(gdbnet);
+                TestPoints(gdbnet);
 
                 //TestMultiPoints(gdbnet);
                 
-                TestPolylines(gdbnet);
+                //TestPolylines(gdbnet);
 
                 Console.WriteLine("Closing geodatabase");
                 gdbnet.CloseGeodatabase();
@@ -78,78 +78,98 @@ namespace Wrapper_Test
             Console.WriteLine("Writing " + numPoints + " points to the database.");
             TableNet table = gdbnet.OpenTable("\\Points");
 
-            DateTime start = DateTime.Now;
-            
-            RowNet row;
-            ShapeBufferNet sb;
-            PointNet pt;
-            for (int i = 0; i < numPoints; i++)
+            try
             {
-                row = table.CreateRowObject();
-                row.SetString("TextField", "Random text string.");
-                row.SetDouble("DoubleField1", RandomDouble());
-                row.SetDouble("DoubleField2", RandomDouble());
-                row.SetDate("DateField", DateTime.Now);
-                row.SetInteger("IntegerField1", RandomInteger());
-                row.SetInteger("IntegerField2", RandomInteger());
+                DateTime start = DateTime.Now;
 
-                double x = RandomDouble(-360, 360);
-                double y = RandomDouble(-180, 180);
-                
-                pt = new PointNet(x, y);
-                sb = new ShapeBufferNet();
-                sb.SetGeometry(pt);
-                row.SetGeometry(sb);
+                RowNet row;
+                ShapeBufferNet sb;
+                PointNet pt;
+                double rowSetMs = 0.0;
+                double pointCreateMs = 0.0;
+                double insertMs = 0.0;
+                DateTime blockStart = DateTime.Now;
+                for (int i = 0; i < numPoints; i++)
+                {
+                    blockStart = DateTime.Now;
+                    row = table.CreateRowObject();
+                    row.SetString("TextField", "Random text string.");
+                    row.SetDouble("DoubleField1", RandomDouble());
+                    row.SetDouble("DoubleField2", RandomDouble());
+                    row.SetDate("DateField", DateTime.Now);
+                    row.SetInteger("IntegerField1", RandomInteger());
+                    row.SetInteger("IntegerField2", RandomInteger());
 
-                table.Insert(row);
+                    rowSetMs += (DateTime.Now - blockStart).TotalMilliseconds;
+
+                    double x = RandomDouble(-360, 360);
+                    double y = RandomDouble(-180, 180);
+
+                    blockStart = DateTime.Now;
+                    pt = new PointNet(x, y);
+                    sb = new ShapeBufferNet();
+                    sb.SetGeometry(pt);
+                    row.SetGeometry(sb);
+                    pointCreateMs += (DateTime.Now - blockStart).TotalMilliseconds;
+
+                    blockStart = DateTime.Now;
+                    table.Insert(row);
+                    insertMs += (DateTime.Now - blockStart).TotalMilliseconds;
+                }
+
+                TimeSpan ts = DateTime.Now - start;
+                Console.WriteLine("Wrote " + numPoints + " points to the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+                Console.WriteLine("Row creation + setting field values took " + rowSetMs + "ms");
+                Console.WriteLine("Point/shape creation took " + pointCreateMs + "ms");
+                Console.WriteLine("Row insert took " + insertMs + "ms");
+
+
+                Console.WriteLine("Reading " + numPoints + " points from the database (including reading all field values).");
+
+                EnumRowsNet rows = table.Search("*", "", false);
+
+                string textField;
+                double doubleField1, doubleField2;
+                DateTime dateField;
+                int integerField1, integerField2;
+
+                start = DateTime.Now;
+                numPoints = 0;
+                while ((row = rows.Next()) != null)
+                {
+                    textField = row.GetString("TextField");
+                    doubleField1 = row.GetDouble("DoubleField1");
+                    doubleField2 = row.GetDouble("DoubleField2");
+                    dateField = (DateTime)row.GetDate("DateField");
+                    integerField1 = row.GetInteger("IntegerField1");
+                    integerField2 = row.GetInteger("IntegerField2");
+                    numPoints++;
+                }
+
+                rows.Close();
+                ts = DateTime.Now - start;
+                Console.WriteLine("Read " + numPoints + " points from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
+                Console.WriteLine("Deleting all rows in the table.");
+                start = DateTime.Now;
+
+                rows = table.Search("OBJECTID", "", false);
+                numPoints = 0;
+                while ((row = rows.Next()) != null)
+                {
+                    table.Delete(row);
+                    numPoints++;
+                }
+                rows.Close();
+
+                ts = DateTime.Now - start;
+                Console.WriteLine("Deleted " + numPoints + " points from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
             }
-
-            TimeSpan ts = DateTime.Now - start;
-            Console.WriteLine("Wrote " + numPoints + " points to the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-
-            Console.WriteLine("Reading " + numPoints + " points from the database (including reading all field values).");
-
-            EnumRowsNet rows = table.Search("*", "", false);
-
-            string textField;
-            double doubleField1, doubleField2;
-            DateTime dateField;
-            int integerField1, integerField2;
-
-            start = DateTime.Now;
-            numPoints = 0;
-            while ((row = rows.Next()) != null)
+            finally
             {
-                textField = row.GetString("TextField");
-                doubleField1 = row.GetDouble("DoubleField1");
-                doubleField2 = row.GetDouble("DoubleField2");
-                dateField = (DateTime)row.GetDate("DateField");
-                integerField1 = row.GetInteger("IntegerField1");
-                integerField2 = row.GetInteger("IntegerField2");
-                numPoints++;
+                gdbnet.CloseTable(table);
             }
-
-            rows.Close();
-            ts = DateTime.Now - start;
-            Console.WriteLine("Read " + numPoints + " points from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            Console.WriteLine("Deleting all rows in the table.");
-            start = DateTime.Now;
-
-            rows = table.Search("OBJECTID", "", false);
-            numPoints = 0;
-            while ((row = rows.Next()) != null)
-            {
-                table.Delete(row);
-                numPoints++;
-            }
-            rows.Close();
-
-            ts = DateTime.Now - start;
-            Console.WriteLine("Deleted " + numPoints + " points from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            gdbnet.CloseTable(table);
         }
 
         private static void TestMultiPoints(GeodatabaseNet gdbnet)
@@ -168,84 +188,94 @@ namespace Wrapper_Test
             Console.WriteLine("Writing " + numMultiPoints + " multipoints to the database.");
             TableNet table = gdbnet.OpenTable("\\Multipoints");
 
-            MultiPointNet mp;
-            ShapeBufferNet sb;
-            RowNet row;
-
-            DateTime start = DateTime.Now;
-
-            int totPoints = 0;
-            for (int i = 0; i < numMultiPoints; i++)
+            try
             {
-                // Generate 1-100 points per multipoint
-                int numSubPoints = rand.Next(1, maxPointsPerMP);
-                totPoints += numSubPoints;
+                MultiPointNet mp;
+                ShapeBufferNet sb;
+                RowNet row;
 
-                mp = new MultiPointNet { Points = new PointNet[numSubPoints] };
+                DateTime start = DateTime.Now;
 
-                for (int j = 0; j < numSubPoints; j++)
-                    mp.Points[j] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
+                int totPoints = 0;
+                for (int i = 0; i < numMultiPoints; i++)
+                {
+                    // Generate 1-100 points per multipoint
+                    int numSubPoints = rand.Next(1, maxPointsPerMP);
+                    totPoints += numSubPoints;
 
-                mp.UpdateExtent();
-                row = table.CreateRowObject();
-                row.SetString("TextField", "Random text string.");
-                row.SetDouble("DoubleField1", RandomDouble());
-                row.SetDouble("DoubleField2", RandomDouble());
-                row.SetDate("DateField", DateTime.Now);
-                row.SetInteger("IntegerField1", RandomInteger());
-                row.SetInteger("IntegerField2", RandomInteger());
+                    mp = new MultiPointNet
+                        {
+                            Points = new PointNet[numSubPoints]
+                        };
 
-                sb = new ShapeBufferNet();
-                sb.SetGeometry(mp);
-                row.SetGeometry(sb);
-                table.Insert(row);
+                    for (int j = 0; j < numSubPoints; j++)
+                        mp.Points[j] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
+
+                    mp.UpdateExtent();
+                    row = table.CreateRowObject();
+                    row.SetString("TextField", "Random text string.");
+                    row.SetDouble("DoubleField1", RandomDouble());
+                    row.SetDouble("DoubleField2", RandomDouble());
+                    row.SetDate("DateField", DateTime.Now);
+                    row.SetInteger("IntegerField1", RandomInteger());
+                    row.SetInteger("IntegerField2", RandomInteger());
+
+                    sb = new ShapeBufferNet();
+                    sb.SetGeometry(mp);
+                    row.SetGeometry(sb);
+                    table.Insert(row);
+                }
+
+                TimeSpan ts = DateTime.Now - start;
+                Console.WriteLine("Wrote " + numMultiPoints + " multipoints to the database (total of " + totPoints + " points) in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
+                Console.WriteLine("Reading multipoints from the database (including reading all field values).");
+
+                EnumRowsNet rows = table.Search("*", "", false);
+
+                string textField;
+                double doubleField1, doubleField2;
+                DateTime dateField;
+                int integerField1, integerField2;
+
+                start = DateTime.Now;
+                numMultiPoints = 0;
+                while ((row = rows.Next()) != null)
+                {
+                    textField = row.GetString("TextField");
+                    doubleField1 = row.GetDouble("DoubleField1");
+                    doubleField2 = row.GetDouble("DoubleField2");
+                    dateField = (DateTime) row.GetDate("DateField");
+                    integerField1 = row.GetInteger("IntegerField1");
+                    integerField2 = row.GetInteger("IntegerField2");
+                    numMultiPoints++;
+                }
+
+                rows.Close();
+                ts = DateTime.Now - start;
+                Console.WriteLine("Read " + numMultiPoints + " multipoints from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
+                Console.WriteLine("Deleting all rows in the table.");
+                start = DateTime.Now;
+
+                rows = table.Search("OBJECTID", "", false);
+                numMultiPoints = 0;
+                while ((row = rows.Next()) != null)
+                {
+                    table.Delete(row);
+                    numMultiPoints++;
+                }
+                rows.Close();
+
+                ts = DateTime.Now - start;
+                Console.WriteLine("Deleted " + numMultiPoints + " multipoints from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
+            }
+            finally
+            {
+                gdbnet.CloseTable(table);
             }
 
-            TimeSpan ts = DateTime.Now - start;
-            Console.WriteLine("Wrote " + numMultiPoints + " multipoints to the database (total of " + totPoints + " points) in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            Console.WriteLine("Reading multipoints from the database (including reading all field values).");
-
-            EnumRowsNet rows = table.Search("*", "", false);
-
-            string textField;
-            double doubleField1, doubleField2;
-            DateTime dateField;
-            int integerField1, integerField2;
-
-            start = DateTime.Now;
-            numMultiPoints = 0;
-            while ((row = rows.Next()) != null)
-            {
-                textField = row.GetString("TextField");
-                doubleField1 = row.GetDouble("DoubleField1");
-                doubleField2 = row.GetDouble("DoubleField2");
-                dateField = (DateTime)row.GetDate("DateField");
-                integerField1 = row.GetInteger("IntegerField1");
-                integerField2 = row.GetInteger("IntegerField2");
-                numMultiPoints++;
-            }
-
-            rows.Close();
-            ts = DateTime.Now - start;
-            Console.WriteLine("Read " + numMultiPoints + " multipoints from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            Console.WriteLine("Deleting all rows in the table.");
-            start = DateTime.Now;
-
-            rows = table.Search("OBJECTID", "", false);
-            numMultiPoints = 0;
-            while ((row = rows.Next()) != null)
-            {
-                table.Delete(row);
-                numMultiPoints++;
-            }
-            rows.Close();
-
-            ts = DateTime.Now - start;
-            Console.WriteLine("Deleted " + numMultiPoints + " multipoints from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            gdbnet.CloseTable(table);
             Console.WriteLine("Finished running multipoint performance test.");
         }
 
@@ -270,86 +300,92 @@ namespace Wrapper_Test
             Console.WriteLine("Writing " + numPolylines + " to the database.");
             TableNet table = gdbnet.OpenTable("\\Lines");
 
-            PolylineNet pl;
-            ShapeBufferNet sb;
-            RowNet row;
-
-            DateTime start = DateTime.Now;
-            int totPoints = 0;
-            for (int i=0; i<numPolylines; i++)
+            try
             {
-                pl = new PolylineNet();
-                int parts = rand.Next(1, numParts);
-                pl.Parts = new PointNet[parts][];
-                for (int j=0; j<parts; j++)
+                PolylineNet pl;
+                ShapeBufferNet sb;
+                RowNet row;
+
+                DateTime start = DateTime.Now;
+                int totPoints = 0;
+                for (int i = 0; i < numPolylines; i++)
                 {
-                    int points = rand.Next(2, maxPointsPerPart);
-                    pl.Parts[j] = new PointNet[points];
-                    for (int k=0; k<points; k++)
+                    pl = new PolylineNet();
+                    int parts = rand.Next(1, numParts);
+                    pl.Parts = new PointNet[parts][];
+                    for (int j = 0; j < parts; j++)
                     {
-                        pl.Parts[j][k] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
-                        totPoints++;
+                        int points = rand.Next(2, maxPointsPerPart);
+                        pl.Parts[j] = new PointNet[points];
+                        for (int k = 0; k < points; k++)
+                        {
+                            pl.Parts[j][k] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
+                            totPoints++;
+                        }
                     }
+
+                    pl.UpdateExtent();
+                    row = table.CreateRowObject();
+                    row.SetString("TextField", "Random text string.");
+                    row.SetDouble("DoubleField1", RandomDouble());
+                    row.SetDouble("DoubleField2", RandomDouble());
+                    row.SetDate("DateField", DateTime.Now);
+                    row.SetInteger("IntegerField1", RandomInteger());
+                    row.SetInteger("IntegerField2", RandomInteger());
+
+                    sb = new ShapeBufferNet();
+                    sb.SetGeometry(pl);
+                    row.SetGeometry(sb);
+                    table.Insert(row);
                 }
 
-                pl.UpdateExtent();
-                row = table.CreateRowObject();
-                row.SetString("TextField", "Random text string.");
-                row.SetDouble("DoubleField1", RandomDouble());
-                row.SetDouble("DoubleField2", RandomDouble());
-                row.SetDate("DateField", DateTime.Now);
-                row.SetInteger("IntegerField1", RandomInteger());
-                row.SetInteger("IntegerField2", RandomInteger());
+                TimeSpan ts = DateTime.Now - start;
+                Console.WriteLine("Wrote " + numPolylines + " polylines to the database (total of " + totPoints + " points) in " + ts.TotalMilliseconds.ToString("N") + "ms");
 
-                sb = new ShapeBufferNet();
-                sb.SetGeometry(pl);
-                row.SetGeometry(sb);
-                table.Insert(row);
+                Console.WriteLine("Reading polylines from the database (including reading all field values).");
+
+                EnumRowsNet rows = table.Search("*", "", false);
+
+                string textField;
+                double doubleField1, doubleField2;
+                DateTime dateField;
+                int integerField1, integerField2;
+
+                start = DateTime.Now;
+                numPolylines = 0;
+                while ((row = rows.Next()) != null)
+                {
+                    textField = row.GetString("TextField");
+                    doubleField1 = row.GetDouble("DoubleField1");
+                    doubleField2 = row.GetDouble("DoubleField2");
+                    dateField = (DateTime) row.GetDate("DateField");
+                    integerField1 = row.GetInteger("IntegerField1");
+                    integerField2 = row.GetInteger("IntegerField2");
+                    numPolylines++;
+                }
+
+                rows.Close();
+                ts = DateTime.Now - start;
+                Console.WriteLine("Read " + numPolylines + " polylines from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
+                Console.WriteLine("Deleting all rows in the table.");
+                start = DateTime.Now;
+
+                rows = table.Search("OBJECTID", "", false);
+                while ((row = rows.Next()) != null)
+                {
+                    table.Delete(row);
+                }
+                rows.Close();
+
+                ts = DateTime.Now - start;
+                Console.WriteLine("Deleted " + numPolylines + " polylines from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
+
             }
-
-            TimeSpan ts = DateTime.Now - start;
-            Console.WriteLine("Wrote " + numPolylines + " polylines to the database (total of " + totPoints + " points) in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            Console.WriteLine("Reading polylines from the database (including reading all field values).");
-
-            EnumRowsNet rows = table.Search("*", "", false);
-
-            string textField;
-            double doubleField1, doubleField2;
-            DateTime dateField;
-            int integerField1, integerField2;
-
-            start = DateTime.Now;
-            numPolylines = 0;
-            while ((row = rows.Next()) != null)
+            finally
             {
-                textField = row.GetString("TextField");
-                doubleField1 = row.GetDouble("DoubleField1");
-                doubleField2 = row.GetDouble("DoubleField2");
-                dateField = (DateTime)row.GetDate("DateField");
-                integerField1 = row.GetInteger("IntegerField1");
-                integerField2 = row.GetInteger("IntegerField2");
-                numPolylines++;
+                gdbnet.CloseTable(table);
             }
-
-            rows.Close();
-            ts = DateTime.Now - start;
-            Console.WriteLine("Read " + numPolylines + " polylines from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            Console.WriteLine("Deleting all rows in the table.");
-            start = DateTime.Now;
-
-            rows = table.Search("OBJECTID", "", false);
-            while ((row = rows.Next()) != null)
-            {
-                table.Delete(row);
-            }
-            rows.Close();
-
-            ts = DateTime.Now - start;
-            Console.WriteLine("Deleted " + numPolylines + " polylines from the database in " + ts.TotalMilliseconds.ToString("N") + "ms");
-
-            gdbnet.CloseTable(table);
             Console.WriteLine("Finished running polyline performance test.");
         }
     }
