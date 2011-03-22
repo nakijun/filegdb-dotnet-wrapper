@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 	public:
 		RowNet() : fgdbApiRow(new FileGDBAPI::Row) {};
 
-		~RowNet() 
+		virtual ~RowNet() 
 		{
 			delete this->fgdbApiRow;
 		}
@@ -40,8 +40,8 @@ namespace FileGDB_DotNet
 		void SetGeometry(FileGDB_DotNet::ShapeBufferNet^ val);
 		short GetShort(String^ field);
 		void SetShort(String^ field, short val);
-		long GetInteger(String^ field);
-		void SetInteger(String^ field, long val);
+		int32 GetInteger(String^ field);
+		void SetInteger(String^ field, int32 val);
 		float GetFloat(String^ field);
 		void SetFloat(String^ field, float val);
 		double GetDouble(String^ field);

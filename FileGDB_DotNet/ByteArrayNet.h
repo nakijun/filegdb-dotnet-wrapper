@@ -23,7 +23,7 @@ namespace FileGDB_DotNet
 		ByteArrayNet() : fgdbApiByteArray(new FileGDBAPI::ByteArray()) { this->m_bytes = nullptr; };
 		ByteArrayNet(unsigned long length) : fgdbApiByteArray(new FileGDBAPI::ByteArray(length)) { this->m_bytes = nullptr; };
 
-		~ByteArrayNet() 
+		virtual ~ByteArrayNet() 
 		{
 			delete this->fgdbApiByteArray;
 

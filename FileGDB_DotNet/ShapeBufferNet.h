@@ -10,12 +10,6 @@
 
 #include "FileGDBAPI.h"
 
-#include "GeometryNet.h"
-#include "PointNet.h"
-#include "PolylineNet.h"
-#include "PolygonNet.h"
-#include "MultiPointNet.h"
-
 using namespace std;
 using namespace System;
 using namespace System::IO;
@@ -23,13 +17,28 @@ using namespace Runtime::InteropServices;
 
 namespace FileGDB_DotNet 
 {
+	public ref class PointNet
+	{
+	public:
+		PointNet() { }
+
+		PointNet(double x, double y)
+		{
+			this->x = x;
+			this->y = y;
+		}
+
+		double x;
+		double y;
+	};
+
 	public ref class ShapeBufferNet
 	{
 	public:
 		ShapeBufferNet() : fgdbApiShapeBuffer(new FileGDBAPI::ShapeBuffer()) {};
 		ShapeBufferNet(unsigned long length) : fgdbApiShapeBuffer(new FileGDBAPI::ShapeBuffer(length)) {};
 
-		~ShapeBufferNet() 
+		virtual ~ShapeBufferNet() 
 		{
 			delete this->fgdbApiShapeBuffer;
 
@@ -39,23 +48,18 @@ namespace FileGDB_DotNet
 
 		FileGDBAPI::ShapeBuffer* fgdbApiShapeBuffer;
 
-	private:
-		PointNet^ GetPoint();
-		PolylineNet^ GetPolyline();
-		PolygonNet^ GetPolygon();
-		MultiPointNet^ GetMultipoint();
-		
-		void SetPoint(PointNet^ point);
-		void SetPolyline(PolylineNet^ pline);
-		void SetPolygon(PolygonNet^ pgon);
-		void SetMultiPoint(MultiPointNet^ mp) ;
-
-	public:
-		long GetShapeType();
-		GeometryNet^ GetGeometry();
-		void SetGeometry(GeometryNet^ geometry);
-
+		int GetShapeType();
 		bool Allocate(unsigned long length);
+
+		static bool HasZs(int shapeType);
+		static bool HasMs(int shapeType);
+		static bool HasIDs(int shapeType);
+		static bool HasCurves(int shapeType);
+		static bool HasNormals(int shapeType);
+		static bool HasTextures(int shapeType);
+		static bool HasMaterials(int shapeType);
+
+		static int GeometryType(int shapeType);
 
 		property unsigned long allocatedLength
 		{

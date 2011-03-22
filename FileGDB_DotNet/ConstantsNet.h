@@ -1,3 +1,6 @@
+#include "stdafx.h"
+#include "FileGDBAPI.h"
+
 using namespace System;
 
 namespace FileGDB_DotNet 
@@ -5,6 +8,81 @@ namespace FileGDB_DotNet
 	public ref class ConstantsNet 
 	{
 	public:
+		enum class FieldType
+		{
+		  fieldTypeSmallInteger = 0,
+		  fieldTypeInteger      = 1,
+		  fieldTypeSingle       = 2,
+		  fieldTypeDouble       = 3,
+		  fieldTypeString       = 4,
+		  fieldTypeDate         = 5,
+		  fieldTypeOID          = 6,
+		  fieldTypeGeometry     = 7,
+		  fieldTypeBlob         = 8,
+		  fieldTypeRaster       = 9,
+		  fieldTypeGUID         = 10,
+		  fieldTypeGlobalID     = 11,
+		  fieldTypeXML          = 12,
+		};
+
+		enum class ShapeType
+		{
+		  shapeNull               = 0,
+		  shapePoint              = 1,
+		  shapePointM             = 21,
+		  shapePointZM            = 11,
+		  shapePointZ             = 9,
+		  shapeMultipoint         = 8,
+		  shapeMultipointM        = 28,
+		  shapeMultipointZM       = 18,
+		  shapeMultipointZ        = 20,
+		  shapePolyline           = 3,
+		  shapePolylineM          = 23,
+		  shapePolylineZM         = 13,
+		  shapePolylineZ          = 10,
+		  shapePolygon            = 5,
+		  shapePolygonM           = 25,
+		  shapePolygonZM          = 15,
+		  shapePolygonZ           = 19,
+		  shapeMultiPatchM        = 31,
+		  shapeMultiPatch         = 32,
+		  shapeGeneralPolyline    = 50,
+		  shapeGeneralPolygon     = 51,
+		  shapeGeneralPoint       = 52,
+		  shapeGeneralMultipoint  = 53,
+		  shapeGeneralMultiPatch  = 54,
+		};
+
+		enum class ShapeModifiers
+		{
+		  shapeHasZs                  = 0x80000000,
+		  shapeHasMs                  = 1073741824,
+		  shapeHasCurves              = 536870912,
+		  shapeHasIDs                 = 268435456,
+		  shapeHasNormals             = 134217728,
+		  shapeHasTextures            = 67108864,
+		  shapeHasPartIDs             = 33554432,
+		  shapeHasMaterials           = 16777216,
+		  shapeIsCompressed           = 8388608,
+		  shapeModifierMask           = -16777216,
+		  shapeMultiPatchModifierMask = 15728640,
+		  shapeBasicTypeMask          = 255,
+		  shapeBasicModifierMask      = -1073741824,
+		  shapeNonBasicModifierMask   = 1056964608,
+		  shapeExtendedModifierMask   = -587202560
+		};
+
+		enum class GeometryType
+		{
+		  geometryNull        = 0,
+		  geometryPoint       = 1,
+		  geometryMultipoint  = 2,
+		  geometryPolyline    = 3,
+		  geometryPolygon     = 4,
+		  geometryMultiPatch  = 9,
+		};
+
+
 		// Item Types
 		static const String^ ITEM_TYPE_FEATURE_CLASS = "Feature Class";
 		static const String^ ITEM_TYPE_ITEM = "Item";
@@ -71,5 +149,6 @@ namespace FileGDB_DotNet
 		static const String^ ESRI_FIELD_TYPE_GUID = "esriFieldTypeGUID";
 		static const String^ ESRI_FIELD_TYPE_GLOBAL_ID = "esriFieldTypeGlobalID";
 		static const String^ ESRI_FIELD_TYPE_XML = "esriFieldTypeXML";
+
 	};
 }

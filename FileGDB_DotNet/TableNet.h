@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 	public:
 		TableNet() : fgdbApiTable(new FileGDBAPI::Table) {};
 
-		~TableNet() 
+		virtual ~TableNet() 
 		{
 			delete this->fgdbApiTable;
 		}

@@ -13,7 +13,7 @@ namespace FileGDB_DotNet
 	FileGDB_DotNet::RowNet^ EnumRowsNet::Next() 
 	{
 		RowNet^ netrow = gcnew RowNet();
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiEnumRows->Next(*netrow->fgdbApiRow)) != S_OK) {
 			if (hr == 1)
 				return nullptr;

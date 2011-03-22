@@ -194,10 +194,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ConstantsNet.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\EnumRowsNet.cpp"
 				>
 			</File>
@@ -206,7 +202,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ErrorInfoNet.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FGDBException.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FieldInfoNet.cpp"
 				>
 			</File>
 			<File
@@ -222,7 +226,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MultiPointNet.cpp"
+				RelativePath=".\MultiPartShapeBufferNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MultiPatchShapeBufferNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MultiPointShapeBufferNet.cpp"
 				>
 			</File>
 			<File
@@ -230,11 +242,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PolygonNet.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PolylineNet.cpp"
+				RelativePath=".\PointShapeBufferNet.cpp"
 				>
 			</File>
 			<File
@@ -247,6 +255,10 @@
 			</File>
 			<File
 				RelativePath=".\ShapeBufferNet.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialReferencesNet.cpp"
 				>
 			</File>
 			<File
@@ -300,11 +312,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\GeodatabaseNet.h"
+				RelativePath=".\FieldInfoNet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GeometryNet.h"
+				RelativePath=".\GeodatabaseNet.h"
 				>
 			</File>
 			<File
@@ -312,19 +324,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MultiPointNet.h"
+				RelativePath=".\MultiPartShapeBufferNet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PointNet.h"
+				RelativePath=".\MultiPatchShapeBufferNet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PolygonNet.h"
+				RelativePath=".\MultiPointShapeBufferNet.h"
 				>
 			</File>
 			<File
-				RelativePath=".\PolylineNet.h"
+				RelativePath=".\PointShapeBufferNet.h"
 				>
 			</File>
 			<File
@@ -345,6 +357,10 @@
 			</File>
 			<File
 				RelativePath=".\ShapeBufferNet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialReferencesNet.h"
 				>
 			</File>
 			<File

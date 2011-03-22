@@ -14,7 +14,7 @@ namespace FileGDB_DotNet
 	String^ TableNet::GetDefinition()
 	{
 		std::string definition;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetDefinition(definition)) != S_OK) {
 			throw gcnew FGDBException("Error getting table definition.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 	String^ TableNet::GetDocumentation()
 	{
 		std::string documentation;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetDocumentation(documentation)) != S_OK) {
 			throw gcnew FGDBException("Error getting table documentation.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -38,7 +38,7 @@ namespace FileGDB_DotNet
 		std::string sDocumentation;
 		MarshalString(documentation, sDocumentation);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->SetDocumentation(sDocumentation)) != S_OK) {
 			throw gcnew FGDBException("Error setting table documentation.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -49,7 +49,7 @@ namespace FileGDB_DotNet
 		std::string sFieldDef;
 		MarshalString(fieldDef, sFieldDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->AddField(sFieldDef)) != S_OK) {
 			throw gcnew FGDBException("Error adding field.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -60,7 +60,7 @@ namespace FileGDB_DotNet
 		std::string sFieldDef;
 		MarshalString(fieldDef, sFieldDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->AlterField(sFieldDef)) != S_OK) {
 			throw gcnew FGDBException("Error altering field.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -71,7 +71,7 @@ namespace FileGDB_DotNet
 		std::wstring wFieldName;
 		MarshalString(fieldName, wFieldName);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->DeleteField(wFieldName)) != S_OK) {
 			throw gcnew FGDBException("Error deleting field.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -81,7 +81,7 @@ namespace FileGDB_DotNet
 	{
 		std::vector<std::string> indexDefs;
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetIndexes(indexDefs)) != S_OK) {
 			throw gcnew FGDBException("Error getting indexes.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -94,7 +94,7 @@ namespace FileGDB_DotNet
 		std::string sIndexDef;
 		MarshalString(indexDef, sIndexDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->AddIndex(sIndexDef)) != S_OK) {
 			throw gcnew FGDBException("Error adding index.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -105,7 +105,7 @@ namespace FileGDB_DotNet
 		std::wstring wIndexName;
 		MarshalString(indexName, wIndexName);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->DeleteIndex(wIndexName)) != S_OK) {
 			throw gcnew FGDBException("Error deleting index.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -116,7 +116,7 @@ namespace FileGDB_DotNet
 		std::string sSubtypeDef;
 		MarshalString(subtypeDef, sSubtypeDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->CreateSubtype(sSubtypeDef)) != S_OK) {
 			throw gcnew FGDBException("Error creating subtype.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -127,7 +127,7 @@ namespace FileGDB_DotNet
 		std::string sSubtypeDef;
 		MarshalString(subtypeDef, sSubtypeDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->AlterSubtype(sSubtypeDef)) != S_OK) {
 			throw gcnew FGDBException("Error altering subtype.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -138,7 +138,7 @@ namespace FileGDB_DotNet
 		std::wstring wSubtypeName;
 		MarshalString(subtypeName, wSubtypeName);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->DeleteSubtype(wSubtypeName)) != S_OK) {
 			throw gcnew FGDBException("Error deleting subtype.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -151,7 +151,7 @@ namespace FileGDB_DotNet
 		std::string sSubtypeDef;
 		MarshalString(subtypeDef, sSubtypeDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->EnableSubtypes(wSubtypeFieldName, sSubtypeDef)) != S_OK) {
 			throw gcnew FGDBException("Error enabling subtypes.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -160,7 +160,7 @@ namespace FileGDB_DotNet
 	int TableNet::GetDefaultSubtypeCode()
 	{
 		int defaultCode;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetDefaultSubtypeCode(defaultCode)) != S_OK) {
 			throw gcnew FGDBException("Error getting default subtype code.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -170,7 +170,7 @@ namespace FileGDB_DotNet
 
 	void TableNet::SetDefaultSubtypeCode(int defaultCode)
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->SetDefaultSubtypeCode(defaultCode)) != S_OK) {
 			throw gcnew FGDBException("Error setting default subtype code.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -178,7 +178,7 @@ namespace FileGDB_DotNet
 
 	void TableNet::DisableSubtypes()
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->DisableSubtypes()) != S_OK) {
 			throw gcnew FGDBException("Error disabling subtypes.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -191,7 +191,7 @@ namespace FileGDB_DotNet
 		MarshalString(whereClause, wWhereClause);
 
 		EnumRowsNet^ outrows = gcnew EnumRowsNet();
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->Search(wSubfields, wWhereClause, *envelope->fgdbApiEnvelope, recycling, *outrows->fgdbApiEnumRows)) != S_OK) {
 			throw gcnew FGDBException("Error searching table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -206,7 +206,7 @@ namespace FileGDB_DotNet
 		MarshalString(whereClause, wWhereClause);
 
 		EnumRowsNet^ outrows = gcnew EnumRowsNet();
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->Search(wSubfields, wWhereClause, recycling, *outrows->fgdbApiEnumRows)) != S_OK) {
 			throw gcnew FGDBException("Error searching table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -217,7 +217,7 @@ namespace FileGDB_DotNet
 	RowNet^ TableNet::CreateRowObject()
 	{
 		RowNet^ outrow = gcnew RowNet();
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->CreateRowObject(*outrow->fgdbApiRow)) != S_OK) {
 			throw gcnew FGDBException("Error creating row object table.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -227,7 +227,7 @@ namespace FileGDB_DotNet
 
 	void TableNet::Insert(RowNet^ row)
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->Insert(*row->fgdbApiRow)) != S_OK) {
 			throw gcnew FGDBException("Error inserting row.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -235,7 +235,7 @@ namespace FileGDB_DotNet
 
 	void TableNet::Update(RowNet^ row)
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->Update(*row->fgdbApiRow)) != S_OK) {
 			throw gcnew FGDBException("Error updating row.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -243,7 +243,7 @@ namespace FileGDB_DotNet
 
 	void TableNet::Delete(RowNet^ row)
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->Delete(*row->fgdbApiRow)) != S_OK) {
 			throw gcnew FGDBException("Error deleting row.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -252,7 +252,7 @@ namespace FileGDB_DotNet
 	bool TableNet::IsEditable() 
 	{
 		bool editable;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->IsEditable(editable)) != S_OK) {
 			throw gcnew FGDBException("Error getting value for IsEditable.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -263,7 +263,7 @@ namespace FileGDB_DotNet
 	long TableNet::GetRowCount() 
 	{
 		int32 rowCount;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetRowCount(rowCount)) != S_OK) {
 			throw gcnew FGDBException("Error getting row count.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -274,7 +274,7 @@ namespace FileGDB_DotNet
 	EnvelopeNet^ TableNet::GetExtent()
 	{
 		EnvelopeNet^ outenv = gcnew EnvelopeNet();
-		long hr;
+		fgdbError hr;
 		if ((hr = this->fgdbApiTable->GetExtent(*outenv->fgdbApiEnvelope)) != S_OK) {
 			throw gcnew FGDBException("Error getting envelope.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}

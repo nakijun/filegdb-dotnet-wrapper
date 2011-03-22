@@ -18,7 +18,7 @@ namespace FileGDB_DotNet
 	public:
 		EnumRowsNet() : fgdbApiEnumRows(new FileGDBAPI::EnumRows) {};
 
-		~EnumRowsNet() 
+		virtual ~EnumRowsNet() 
 		{
 			delete this->fgdbApiEnumRows;
 		}
