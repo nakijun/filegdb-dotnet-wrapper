@@ -8,7 +8,7 @@
 #define EXT_FILEGDB_API _declspec(dllimport)
 #pragma warning (disable : 4251)
 
-#include "FileGDB_API_1_0_beta2/include/FileGDBAPI.h"
+#include "FileGDBAPI.h"
 
 #include "EnumRowsNet.h"
 #include "EnvelopeNet.h"

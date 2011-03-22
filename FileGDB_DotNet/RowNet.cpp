@@ -37,7 +37,7 @@ namespace FileGDB_DotNet
 
 	long RowNet::GetOID() 
 	{
-		long val;
+		int32 val;
 		long hr;
 		if ((hr = this->fgdbApiRow->GetOID(val)) != S_OK) {
 			throw gcnew FGDBException("Error getting OID.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
@@ -106,7 +106,7 @@ namespace FileGDB_DotNet
 		std::wstring wField;
 		MarshalString(field, wField);
 
-		long val;
+		int32 val;
 		long hr;
 		if ((hr = this->fgdbApiRow->GetInteger(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);

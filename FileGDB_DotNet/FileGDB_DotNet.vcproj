@@ -42,10 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				GenerateXMLDocumentationFiles="true"
+				GenerateXMLDocumentationFiles="false"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -62,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="FileGDBAPID.lib $(NoInherit)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta2\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -87,7 +88,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta2\bin\FileGDBAPID.dll&quot; $(OutDir)&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta2\bin\FileGDBAPID.pdb&quot; $(OutDir)&#x0D;&#x0A;"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.dll&quot; $(OutDir)&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.pdb&quot; $(OutDir)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -299,18 +300,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\FileGDBAPI.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\Geodatabase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\GeodatabaseManagement.h"
-				>
-			</File>
-			<File
 				RelativePath=".\GeodatabaseNet.h"
 				>
 			</File>
@@ -339,10 +328,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\Raster.h"
-				>
-			</File>
-			<File
 				RelativePath=".\RasterNet.h"
 				>
 			</File>
@@ -352,10 +337,6 @@
 			</File>
 			<File
 				RelativePath=".\resource1.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\Row.h"
 				>
 			</File>
 			<File
@@ -371,15 +352,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\Table.h"
-				>
-			</File>
-			<File
 				RelativePath=".\TableNet.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileGDB_API_1_0_beta2\include\Util.h"
 				>
 			</File>
 		</Filter>

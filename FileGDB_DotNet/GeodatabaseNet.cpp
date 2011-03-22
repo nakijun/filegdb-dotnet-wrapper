@@ -236,14 +236,15 @@ namespace FileGDB_DotNet
 		}
 	}
 
-	void GeodatabaseNet::Rename(String^ path, String^ newName) 
+	void GeodatabaseNet::Rename(String^ path, String^ datasetType, String^ newName) 
 	{
-		std::wstring wPath, wNewName;
+		std::wstring wPath, wDatasetType, wNewName;
 		MarshalString(path, wPath);
+		MarshalString(datasetType, wDatasetType);
 		MarshalString(newName, wNewName);
 
 		long hr;
-		if ((hr = this->m_geodatabase->Rename(wPath, wNewName)) != S_OK) {
+		if ((hr = this->m_geodatabase->Rename(wPath, wDatasetType, wNewName)) != S_OK) {
 			throw gcnew FGDBException("Error renaming table.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
