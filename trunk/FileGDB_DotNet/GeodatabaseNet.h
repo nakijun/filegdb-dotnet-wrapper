@@ -29,7 +29,7 @@ namespace FileGDB_DotNet
 	public:
 		GeodatabaseNet() : m_geodatabase(new FileGDBAPI::Geodatabase) {};
 
-		~GeodatabaseNet() 
+		virtual ~GeodatabaseNet() 
 		{
 			delete this->m_geodatabase;
 		}

@@ -20,7 +20,7 @@ namespace FileGDB_DotNet
 		std::wstring wPath;
 		MarshalString(path, wPath);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = FileGDBAPI::CreateGeodatabase(wPath, *this->m_geodatabase)) != S_OK) {
 			throw gcnew FGDBException("Error creating geodatabase.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -31,7 +31,7 @@ namespace FileGDB_DotNet
 		std::wstring wPath;
 		MarshalString(path, wPath);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = FileGDBAPI::OpenGeodatabase(wPath, *this->m_geodatabase)) != S_OK) {
 			throw gcnew FGDBException("Error opening geodatabase.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -39,7 +39,7 @@ namespace FileGDB_DotNet
 
 	void GeodatabaseNet::CloseGeodatabase()
 	{
-		long hr = FileGDBAPI::CloseGeodatabase(*this->m_geodatabase);
+		fgdbError hr = FileGDBAPI::CloseGeodatabase(*this->m_geodatabase);
 	}
 
 	void GeodatabaseNet::DeleteGeodatabase(String^ path)
@@ -47,7 +47,7 @@ namespace FileGDB_DotNet
 		std::wstring wPath;
 		MarshalString(path, wPath);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = FileGDBAPI::DeleteGeodatabase(wPath)) != S_OK) {
 			throw gcnew FGDBException("Error deleting geodatabase.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -60,7 +60,7 @@ namespace FileGDB_DotNet
 	{
 		std::vector<std::wstring> datasetTypes;
 		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetDatasetTypes(datasetTypes)) != S_OK) {
 			throw gcnew Exception("Error getting dataset types.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -72,7 +72,7 @@ namespace FileGDB_DotNet
 	{
 		std::vector<std::wstring> datasetRelTypes;
 		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetDatasetRelationshipTypes(datasetRelTypes)) != S_OK) {
 			throw gcnew Exception("Error getting dataset relationship types.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -88,7 +88,7 @@ namespace FileGDB_DotNet
 
 		std::vector<std::wstring> childDatasets;
 		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetChildDatasets(wParentPath, wDatasetType, childDatasets)) != S_OK) {
 			throw gcnew Exception("Error getting child datasets.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -104,7 +104,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 
 		std::vector<std::wstring> relDatasets;		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetRelatedDatasets(wPath, wRelType, wDatasetType, relDatasets)) != S_OK) {
 			throw gcnew Exception("Error getting related datasets.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -124,7 +124,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 
 		std::string datasetDef;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetDatasetDefinition(wPath, wDatasetType, datasetDef)) != S_OK) {
 			throw gcnew Exception("Error getting dataset definition.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -140,7 +140,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 
 		std::vector<std::string> relChildDatasetDefs;		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetChildDatasetDefinitions(wParentPath, wDatasetType, relChildDatasetDefs)) != S_OK) {
 			throw gcnew Exception("Error getting child datasets definitions.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -156,7 +156,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 
 		std::vector<std::string> relDatasetDefs;		
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetRelatedDatasetDefinitions(wPath, wRelType, wDatasetType, relDatasetDefs)) != S_OK) {
 			throw gcnew Exception("Error getting related dataset definitions.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -171,7 +171,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 
 		std::string datasetDoc;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetDatasetDocumentation(wPath, wDatasetType, datasetDoc)) != S_OK) {
 			throw gcnew Exception("Error getting dataset documentation.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -189,7 +189,7 @@ namespace FileGDB_DotNet
 		std::string sDatasetDef;
 		MarshalString(datasetDef, sDatasetDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->CreateFeatureDataset(sDatasetDef)) != S_OK) {
 			throw gcnew FGDBException("Error creating feature dataset.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -202,7 +202,7 @@ namespace FileGDB_DotNet
 		MarshalString(tableDef, sTableDef);
 		MarshalString(parent, wParent);
 
-		long hr;
+		fgdbError hr;
 		TableNet^ table = gcnew TableNet();
 		if ((hr = this->m_geodatabase->CreateTable(sTableDef, wParent, *table->fgdbApiTable)) != S_OK) 
 		{
@@ -218,7 +218,7 @@ namespace FileGDB_DotNet
 		std::wstring wPath;
 		MarshalString(path, wPath);
 
-		long hr;
+		fgdbError hr;
 		TableNet^ table = gcnew TableNet();
 		if ((hr = this->m_geodatabase->OpenTable(wPath, *table->fgdbApiTable)) != S_OK) {
 			delete table;
@@ -230,7 +230,7 @@ namespace FileGDB_DotNet
 
 	void GeodatabaseNet::CloseTable(TableNet^ table) 
 	{
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->CloseTable(*table->fgdbApiTable)) != S_OK) {
 			throw gcnew FGDBException("Error closing table.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -243,7 +243,7 @@ namespace FileGDB_DotNet
 		MarshalString(datasetType, wDatasetType);
 		MarshalString(newName, wNewName);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->Rename(wPath, wDatasetType, wNewName)) != S_OK) {
 			throw gcnew FGDBException("Error renaming table.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -255,7 +255,7 @@ namespace FileGDB_DotNet
 		MarshalString(path, wPath);
 		MarshalString(newParentPath, wNewParentPath);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->Move(wPath, wNewParentPath)) != S_OK) {
 			throw gcnew FGDBException("Error moving table.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -267,7 +267,7 @@ namespace FileGDB_DotNet
 		MarshalString(path, wPath);
 		MarshalString(datasetType, wDatasetType);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->Delete(wPath, wDatasetType)) != S_OK) {
 			throw gcnew FGDBException("Error deleting table.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -283,7 +283,7 @@ namespace FileGDB_DotNet
 		std::string sDomainDef;
 		MarshalString(domainDef, sDomainDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->CreateDomain(sDomainDef)) != S_OK) {
 			throw gcnew FGDBException("Error creating domain.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -294,7 +294,7 @@ namespace FileGDB_DotNet
 		std::string sDomainDef;
 		MarshalString(domainDef, sDomainDef);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = m_geodatabase->AlterDomain(sDomainDef)) != S_OK) {
 			throw gcnew FGDBException("Error altering domain.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -305,7 +305,7 @@ namespace FileGDB_DotNet
 		std::wstring wDomainName;
 		MarshalString(domainName, wDomainName);
 
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->DeleteDomain(wDomainName)) != S_OK) {
 			throw gcnew FGDBException("Error deleting domain.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")", hr);
 		}
@@ -317,7 +317,7 @@ namespace FileGDB_DotNet
 		MarshalString(domainName, wDomainName);
 
 		std::string domainDef;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetDomainDefinition(wDomainName, domainDef)) != S_OK) {
 			throw gcnew Exception("Error getting domain definition.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -337,7 +337,7 @@ namespace FileGDB_DotNet
 		MarshalString(path, wPath);
 
 		std::wstring queryName;
-		long hr;
+		fgdbError hr;
 		if ((hr = this->m_geodatabase->GetQueryName(wPath, queryName)) != S_OK) {
 			throw gcnew Exception("Error getting query name.  Error code: " + hr + " (0x" + hr.ToString("X8") + ")");
 		}
@@ -351,7 +351,7 @@ namespace FileGDB_DotNet
 		std::wstring wSqlStmt;
 		MarshalString(sqlStmt, wSqlStmt);
 
-		long hr;
+		fgdbError hr;
 		FileGDB_DotNet::EnumRowsNet^ enumRow = gcnew FileGDB_DotNet::EnumRowsNet();
 		if ((hr = this->m_geodatabase->ExecuteSQL(wSqlStmt, recycling, *enumRow->fgdbApiEnumRows)) != S_OK) 
 		{

@@ -21,7 +21,7 @@ namespace FileGDB_DotNet
 	public:
 		RasterNet() : fgdbApiRaster(new FileGDBAPI::Raster) {};
 
-		~RasterNet() 
+		virtual ~RasterNet() 
 		{
 			delete this->fgdbApiRaster;
 		}

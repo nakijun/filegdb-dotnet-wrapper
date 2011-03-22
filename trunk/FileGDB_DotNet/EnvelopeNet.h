@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 		{
 		}
 
-		~EnvelopeNet() 
+		virtual ~EnvelopeNet() 
 		{
 			delete this->fgdbApiEnvelope;
 		}
