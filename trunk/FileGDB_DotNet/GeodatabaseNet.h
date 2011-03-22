@@ -8,7 +8,7 @@
 #define EXT_FILEGDB_API _declspec(dllimport)
 #pragma warning (disable : 4251)
 
-#include "FileGDB_API_1_0_beta2/include/FileGDBAPI.h"
+#include "FileGDBAPI.h"
 
 #include "Marshal.h"
 #include "TableNet.h"
@@ -69,7 +69,7 @@ namespace FileGDB_DotNet
 		FileGDB_DotNet::TableNet^ CreateTable(String^ tableDef, String^ parent);
 		FileGDB_DotNet::TableNet^ OpenTable(String^ path);
 		void CloseTable(FileGDB_DotNet::TableNet^ table);
-		void Rename(String^ path, String^ newName);
+		void Rename(String^ path, String^ datasetType, String^ newName);
 		void Move(String^ path, String^ newParentPath);
 		void Delete(String^ path, String^ datasetType);
 #pragma endregion

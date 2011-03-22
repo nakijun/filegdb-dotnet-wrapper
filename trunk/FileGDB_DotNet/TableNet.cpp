@@ -262,7 +262,7 @@ namespace FileGDB_DotNet
 
 	long TableNet::GetRowCount() 
 	{
-		long rowCount;
+		int32 rowCount;
 		long hr;
 		if ((hr = this->fgdbApiTable->GetRowCount(rowCount)) != S_OK) {
 			throw gcnew FGDBException("Error getting row count.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);

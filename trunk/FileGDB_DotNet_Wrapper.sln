@@ -8,6 +8,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrapper_Test", "Wrapper_Tes
 		{64209DBF-7AA2-448C-A7F9-C5E010A827BA} = {64209DBF-7AA2-448C-A7F9-C5E010A827BA}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileGDB Includes", "FileGDB Includes", "{A7DD617F-93E4-4E87-86C5-9E92A7D32914}"
+	ProjectSection(SolutionItems) = preProject
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\FileGDBAPI.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\FileGDBAPI.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\FileGDBCore.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\FileGDBCore.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Geodatabase.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Geodatabase.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\GeodatabaseManagement.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\GeodatabaseManagement.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Raster.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Raster.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Row.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Row.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Table.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Table.h
+		FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Util.h = FileGDB_DotNet\FileGDB_API_1_0_beta3\include\Util.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
