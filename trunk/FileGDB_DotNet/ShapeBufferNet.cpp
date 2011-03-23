@@ -15,14 +15,14 @@ namespace FileGDB_DotNet
 		return this->fgdbApiShapeBuffer->Allocate(length);
 	}
 
-	int ShapeBufferNet::GetShapeType() 
+	ShapeTypeNet ShapeBufferNet::GetShapeType() 
 	{
 		int shapeType;
 		fgdbError hr;
 		if ((hr = this->fgdbApiShapeBuffer->GetShapeType(shapeType)) != S_OK) {
 			throw gcnew FGDBException("Error getting shape type.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
-		return shapeType;
+		return (ShapeTypeNet)shapeType;
 	}
 
 #pragma region "Static Methods"
