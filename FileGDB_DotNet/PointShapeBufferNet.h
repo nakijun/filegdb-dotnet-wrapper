@@ -20,10 +20,14 @@ namespace FileGDB_DotNet
 		PointShapeBufferNet() : ShapeBufferNet() {};
 		PointShapeBufferNet(unsigned long length) : ShapeBufferNet(length) {};
 
-		void GetPoints([Out] array<PointNet^>^ points);
-		void GetZs([Out] array<double>^ zArray);
-		void GetMs([Out] array<double>^ mArray);
-		void GetIDs([Out] array<int>^ idArray);
+		void GetPoints([Out] array<PointNet^>^ %points);
+		void SetPoints(array<PointNet^>^ points);
+		void GetZs([Out] array<double>^ %zArray);
+		void SetZs(array<double>^ zArray);
+		void GetMs([Out] array<double>^ %mArray);
+		void SetMs(array<double>^ mArray);
+		void GetIDs([Out] array<int>^ %idArray);
+		void SetIDs(array<int>^ idArray);
 
 		void Setup(int shapeType);
 	};

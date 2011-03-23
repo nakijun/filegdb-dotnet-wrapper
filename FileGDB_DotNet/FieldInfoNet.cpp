@@ -32,7 +32,7 @@ namespace FileGDB_DotNet
 		return gcnew String(fieldName.c_str());
 	}
 
-	FileGDB_DotNet::ConstantsNet::FieldType FieldInfoNet::GetFieldType(int fieldNumber)
+	FieldTypeNet FieldInfoNet::GetFieldType(int fieldNumber)
 	{
 		FileGDBAPI::FieldType fieldType;		
 		fgdbError hr;
@@ -40,7 +40,7 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting field type.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		return (FileGDB_DotNet::ConstantsNet::FieldType)((int)fieldType);
+		return (FieldTypeNet)((int)fieldType);
 	}
 
 	int FieldInfoNet::GetFieldLength(int fieldNumber)

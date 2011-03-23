@@ -9,6 +9,7 @@
 #pragma warning (disable : 4251)
 
 #include "FileGDBAPI.h"
+#include "ConstantsNet.h"
 
 using namespace std;
 using namespace System;
@@ -48,7 +49,7 @@ namespace FileGDB_DotNet
 
 		FileGDBAPI::ShapeBuffer* fgdbApiShapeBuffer;
 
-		int GetShapeType();
+		ShapeTypeNet GetShapeType();
 		bool Allocate(unsigned long length);
 
 		static bool HasZs(int shapeType);

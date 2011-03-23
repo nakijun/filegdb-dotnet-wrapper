@@ -31,7 +31,7 @@ namespace FileGDB_DotNet
 
 		int GetFieldCount();
 		String^ GetFieldName(int fieldNumber);
-		FileGDB_DotNet::ConstantsNet::FieldType GetFieldType(int fieldNumber);
+		FieldTypeNet GetFieldType(int fieldNumber);
 		int GetFieldLength(int fieldNumber);
 		bool GetFieldIsNullable(int fieldNumber);
 

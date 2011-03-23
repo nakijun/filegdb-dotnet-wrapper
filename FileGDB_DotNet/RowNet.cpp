@@ -6,6 +6,7 @@
 #include "stdafx.h"
 
 #include "RowNet.h"
+#include "PointShapeBufferNet.h"
 #include "FGDBException.h"
 
 namespace FileGDB_DotNet 
@@ -59,10 +60,22 @@ namespace FileGDB_DotNet
 
 	ShapeBufferNet^ RowNet::GetGeometry() 
 	{
-		ShapeBufferNet^ outsb = gcnew ShapeBufferNet();
+		FileGDBAPI::ShapeBuffer* sb = new FileGDBAPI::ShapeBuffer;
 		fgdbError hr;
-		if ((hr = this->fgdbApiRow->GetGeometry(*outsb->fgdbApiShapeBuffer)) != S_OK) {
+		if ((hr = this->fgdbApiRow->GetGeometry(*sb)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
+		}
+
+		int shapeType;
+		sb->GetShapeType(shapeType);
+
+		ShapeBufferNet^ outsb;
+		if (shapeType == FileGDBAPI::ShapeType::shapePoint) {
+			outsb = gcnew PointShapeBufferNet();
+			// Delete the object created by the constructor,
+			// and set it to the object created by this method
+			delete outsb->fgdbApiShapeBuffer;
+			outsb->fgdbApiShapeBuffer = sb;
 		}
 
 		return outsb;

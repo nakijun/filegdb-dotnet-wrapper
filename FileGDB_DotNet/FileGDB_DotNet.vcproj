@@ -218,10 +218,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\GeometryNet.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Marshal.cpp"
 				>
 			</File>
@@ -235,10 +231,6 @@
 			</File>
 			<File
 				RelativePath=".\MultiPointShapeBufferNet.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PointNet.cpp"
 				>
 			</File>
 			<File
