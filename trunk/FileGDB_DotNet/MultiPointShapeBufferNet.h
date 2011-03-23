@@ -20,8 +20,8 @@ namespace FileGDB_DotNet
 		MultiPointShapeBufferNet() : ShapeBufferNet() {};
 		MultiPointShapeBufferNet(unsigned long length) : ShapeBufferNet(length) {};
 
-		void GetExtent([Out] array<double>^ %extent);
-		void SetExtent(array<double>^ extent);
+		EnvelopeNet^ GetExtent();
+		void SetExtent(EnvelopeNet^ extent);
 		int GetNumPoints();
 		void GetPoints([Out] array<PointNet^>^ %points);
 		void SetPoints(array<PointNet^>^ points);
@@ -36,7 +36,7 @@ namespace FileGDB_DotNet
 		void GetIDs([Out] array<int>^ %idArray);
 		void SetIDs(array<int>^ idArray);
 
-		void Setup(int shapeType, int numPoints);
+		void Setup(ShapeTypeNet shapeType, int numPoints);
 
 		void CalculateExtent(void);
 	};

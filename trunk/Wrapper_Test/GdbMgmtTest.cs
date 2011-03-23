@@ -40,13 +40,14 @@ namespace Wrapper_Test
                 Console.WriteLine("Deleting Geodatabase");
                 gdbnet.DeleteGeodatabase(gdbpath);
 
-                Console.WriteLine("***** Finished Running Geodatabase Management Test *****");   
+                Console.WriteLine("***** Finished Running Geodatabase Management Test *****");
             }
             catch (FGDBException exc)
             {
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
     }

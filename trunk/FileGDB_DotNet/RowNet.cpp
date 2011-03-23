@@ -7,6 +7,9 @@
 
 #include "RowNet.h"
 #include "PointShapeBufferNet.h"
+#include "MultiPointShapeBufferNet.h"
+#include "MultiPartShapeBufferNet.h"
+#include "MultiPatchShapeBufferNet.h"
 #include "FGDBException.h"
 
 namespace FileGDB_DotNet 
@@ -70,13 +73,47 @@ namespace FileGDB_DotNet
 		sb->GetShapeType(shapeType);
 
 		ShapeBufferNet^ outsb;
-		if (shapeType == FileGDBAPI::ShapeType::shapePoint) {
-			outsb = gcnew PointShapeBufferNet();
-			// Delete the object created by the constructor,
-			// and set it to the object created by this method
-			delete outsb->fgdbApiShapeBuffer;
-			outsb->fgdbApiShapeBuffer = sb;
-		}
+		// Create the appropriate class based on the shape type
+		switch (shapeType) {
+			case FileGDBAPI::shapeGeneralPoint:
+			case FileGDBAPI::shapePoint:
+			case FileGDBAPI::shapePointM:
+			case FileGDBAPI::shapePointZ:
+			case FileGDBAPI::shapePointZM:
+				outsb = gcnew PointShapeBufferNet();
+				break;
+			case FileGDBAPI::shapeGeneralMultipoint:
+			case FileGDBAPI::shapeMultipoint:
+			case FileGDBAPI::shapeMultipointM:
+			case FileGDBAPI::shapeMultipointZ:
+			case FileGDBAPI::shapeMultipointZM:
+				outsb = gcnew MultiPointShapeBufferNet();
+				break;
+			case FileGDBAPI::shapeGeneralPolyline:
+			case FileGDBAPI::shapePolyline:
+			case FileGDBAPI::shapePolylineM:
+			case FileGDBAPI::shapePolylineZ:
+			case FileGDBAPI::shapePolylineZM:
+			case FileGDBAPI::shapeGeneralPolygon:
+			case FileGDBAPI::shapePolygon:
+			case FileGDBAPI::shapePolygonM:
+			case FileGDBAPI::shapePolygonZ:
+			case FileGDBAPI::shapePolygonZM:
+				outsb = gcnew MultiPartShapeBufferNet();
+				break;
+			case FileGDBAPI::shapeMultiPatch:
+			case FileGDBAPI::shapeMultiPatchM:
+			case FileGDBAPI::shapeGeneralMultiPatch:
+				outsb = gcnew MultiPatchShapeBufferNet();
+				break;
+			default:
+				outsb = gcnew ShapeBufferNet();
+				break;
+		};
+
+		// Delete the internal buffer pointer and assign it to the one created earlier
+		delete outsb->fgdbApiShapeBuffer;
+		outsb->fgdbApiShapeBuffer = sb;
 
 		return outsb;
 	}

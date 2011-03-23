@@ -8,7 +8,8 @@ using FileGDB_DotNet;
 
 namespace Wrapper_Test
 {
-    public class ReadGeomsTest
+    public class 
+        ReadGeomsTest
     {
         public static void Run()
         {
@@ -38,6 +39,7 @@ namespace Wrapper_Test
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
 
@@ -50,17 +52,17 @@ namespace Wrapper_Test
             EnumRowsNet queryRows = table.Search("*", "", true);
 
             RowNet row;
-            ShapeBufferNet shpBuffer;
+            PointShapeBufferNet psb;
 
             Console.WriteLine("Enumerating point results (first 10 results only)...");
             int i = 0;
-            PointNet point;
+            PointNet[] pts;
             while ((row = queryRows.Next()) != null && i++ < 10)
             {
-                shpBuffer = row.GetGeometry();
-                point = (PointNet) shpBuffer.GetGeometry();
+                psb = (PointShapeBufferNet)row.GetGeometry();
+                psb.GetPoints(out pts);
 
-                Console.WriteLine(String.Format("X: {0}  Y: {1}", point.X, point.Y));
+                Console.WriteLine(String.Format("X: {0}  Y: {1}", pts[0].x, pts[0].y));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -81,15 +83,18 @@ namespace Wrapper_Test
             Console.WriteLine("Enumerating polyline results (first 10 results only)...");
             int i = 0;
             RowNet row;
-            ShapeBufferNet shpBuffer;
-            PolylineNet line;
+            MultiPartShapeBufferNet mpsb;
+            PointNet[] pts;
+            EnvelopeNet extent;
+
             while ((row = queryRows.Next()) != null && i++ < 10)
             {
-                shpBuffer = row.GetGeometry();
-                line = (PolylineNet)shpBuffer.GetGeometry();
+                mpsb = (MultiPartShapeBufferNet)row.GetGeometry();
+                mpsb.GetPoints(out pts);
+                extent = mpsb.GetExtent();
 
-                Console.WriteLine(String.Format("Polyline extent: {0}, {1}, {2}, {3}", line.Extent.XMin, line.Extent.YMin, line.Extent.XMax, line.Extent.YMax));
-                Console.WriteLine(String.Format("Number of Parts: {0}  Number of Points: {1}", line.NumParts, line.NumPoints));
+                Console.WriteLine(String.Format("Polyline extent: {0}, {1}, {2}, {3}", extent.XMin, extent.YMin, extent.XMax, extent.YMax));
+                Console.WriteLine(String.Format("Number of Parts: {0}  Number of Points: {1}", mpsb.GetNumParts(), mpsb.GetNumPoints()));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -109,15 +114,19 @@ namespace Wrapper_Test
 
             Console.WriteLine("Enumerating polygon results (first 10 results only)...");
             int i = 0;
-            PolygonNet pgon; ShapeBufferNet shpBuffer;
             RowNet row;
+            MultiPartShapeBufferNet mpsb;
+            PointNet[] pts;
+            EnvelopeNet extent;
+
             while ((row = queryRows.Next()) != null && i++ < 10)
             {
-                shpBuffer = row.GetGeometry();
-                pgon = (PolygonNet)shpBuffer.GetGeometry();
+                mpsb = (MultiPartShapeBufferNet)row.GetGeometry();
+                mpsb.GetPoints(out pts);
+                extent = mpsb.GetExtent();
 
-                Console.WriteLine(String.Format("Polygon extent: {0}, {1}, {2}, {3}", pgon.Extent.XMin, pgon.Extent.YMin, pgon.Extent.XMax, pgon.Extent.YMax));
-                Console.WriteLine(String.Format("Number of Paths: {0}  Number of Points: {1}", pgon.NumPaths, pgon.NumPoints));
+                Console.WriteLine(String.Format("Polygon extent: {0}, {1}, {2}, {3}", extent.XMin, extent.YMin, extent.XMax, extent.YMax));
+                Console.WriteLine(String.Format("Number of Parts: {0}  Number of Points: {1}", mpsb.GetNumParts(), mpsb.GetNumPoints()));
             }
 
             Console.WriteLine("Closing enumerator.");

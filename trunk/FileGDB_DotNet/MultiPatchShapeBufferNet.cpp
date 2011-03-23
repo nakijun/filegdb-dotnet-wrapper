@@ -10,7 +10,7 @@
 
 namespace FileGDB_DotNet 
 {
-	void MultiPatchShapeBufferNet::GetExtent([Out] array<double>^ %extent)
+	EnvelopeNet^ MultiPatchShapeBufferNet::GetExtent()
 	{
 		fgdbError hr;
 		double* inExtent;
@@ -19,20 +19,11 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting extent.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		// TODO: Verify to make sure extent is in fact returned as 4 doubles
-		// TODO: Return an Envelope instead of a double array?
-		extent = gcnew array<double>(4);
-		extent[0] = inExtent[0];
-		extent[1] = inExtent[1];
-		extent[2] = inExtent[2];
-		extent[3] = inExtent[3];
+		return gcnew EnvelopeNet(inExtent[0], inExtent[2],inExtent[1], inExtent[3]);
 	}
 
-	void MultiPatchShapeBufferNet::SetExtent(array<double>^ extent)
+	void MultiPatchShapeBufferNet::SetExtent(EnvelopeNet^ extent)
 	{
-		if (extent == nullptr || extent->Length != 4)
-			throw gcnew Exception("Error setting extent.  You must supply an array of exactly 4 values.");
-
 		fgdbError hr;
 		double* inExtent;
 		FileGDBAPI::MultiPatchShapeBuffer* mpsb = (FileGDBAPI::MultiPatchShapeBuffer*)this->fgdbApiShapeBuffer;
@@ -40,12 +31,10 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting extent.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		// TODO: Verify to make sure extent is in fact returned as 4 doubles
-		// TODO: Return an Envelope instead of a double array?
-		inExtent[0] = extent[0];
-		inExtent[1] = extent[1];
-		inExtent[2] = extent[2];
-		inExtent[3] = extent[3];
+		inExtent[0] = extent->XMin;
+		inExtent[1] = extent->YMin;
+		inExtent[2] = extent->XMax;
+		inExtent[3] = extent->YMax;
 	}
 
 	int MultiPatchShapeBufferNet::GetNumParts()
@@ -81,18 +70,18 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting parts.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		int numPoints = this->GetNumPoints();
-		parts = gcnew array<int>(numPoints);
-		for (int i=0; i<numPoints; i++)
+		int numParts = this->GetNumParts();
+		parts = gcnew array<int>(numParts);
+		for (int i=0; i<numParts; i++)
 			parts[i] = inParts[i];
 	}
 
 	void MultiPatchShapeBufferNet::SetParts(array<int>^ parts)
 	{
-		int numPoints = this->GetNumPoints();
+		int numParts = this->GetNumParts();
 
-		if (parts == nullptr || parts->Length != numPoints)
-			throw gcnew Exception("Error setting parts.  You must supply an array of exactly " + numPoints + " values.");
+		if (parts == nullptr || parts->Length != numParts)
+			throw gcnew Exception("Error setting parts.  You must supply an array of exactly " + numParts + " values.");
 
 		fgdbError hr;
 		int* inParts;
@@ -101,7 +90,7 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting parts.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		for (int i=0; i<numPoints; i++)
+		for (int i=0; i<numParts; i++)
 			inParts[i] = parts[i];
 	}
 
@@ -114,18 +103,18 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting part descriptors.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		int numPoints = this->GetNumPoints();
-		parts = gcnew array<int>(numPoints);
-		for (int i=0; i<numPoints; i++)
+		int numParts = this->GetNumParts();
+		parts = gcnew array<int>(numParts);
+		for (int i=0; i<numParts; i++)
 			parts[i] = inParts[i];
 	}
 
 	void MultiPatchShapeBufferNet::SetPartDescriptors(array<int>^ parts)
 	{
-		int numPoints = this->GetNumPoints();
+		int numParts = this->GetNumParts();
 
-		if (parts == nullptr || parts->Length != numPoints)
-			throw gcnew Exception("Error setting parts.  You must supply an array of exactly " + numPoints + " values.");
+		if (parts == nullptr || parts->Length != numParts)
+			throw gcnew Exception("Error setting parts.  You must supply an array of exactly " + numParts + " values.");
 
 		fgdbError hr;
 		int* inParts;
@@ -134,7 +123,7 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting part descriptors.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		for (int i=0; i<numPoints; i++)
+		for (int i=0; i<numParts; i++)
 			inParts[i] = parts[i];
 	}
 	
@@ -348,11 +337,11 @@ namespace FileGDB_DotNet
 			inIdArray[i] = idArray[i];
 	}
 	
-	void MultiPatchShapeBufferNet::Setup(int shapeType, int numParts, int numPoints, int numCurves)
+	void MultiPatchShapeBufferNet::Setup(ShapeTypeNet shapeType, int numParts, int numPoints, int numCurves)
 	{
 		fgdbError hr;
 		FileGDBAPI::MultiPatchShapeBuffer* mpsb = (FileGDBAPI::MultiPatchShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = mpsb->Setup(shapeType, numParts, numPoints, numCurves)) != S_OK) {
+		if ((hr = mpsb->Setup((int)shapeType, numParts, numPoints, numCurves)) != S_OK) {
 			throw gcnew FGDBException("Error setting up.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}

@@ -105,7 +105,7 @@ namespace Wrapper_Test
                     Console.WriteLine("Geodatabase already exists, attempting to delete.");
                     gdbnet.DeleteGeodatabase(gdbpath);
                 }
-                
+
                 Console.WriteLine("Creating Geodatabase...");
                 gdbnet.CreateGeodatabase(gdbpath);
 
@@ -114,7 +114,7 @@ namespace Wrapper_Test
                     Console.WriteLine("ERROR - Geodatabase creation reported no errors but no geodatabase found.  Exiting...");
                     return;
                 }
-                
+
                 Console.WriteLine("Reading XML Feature Class Definition");
                 string tableDef;
                 using (StreamReader sr = new StreamReader(fcdefpath))
@@ -170,6 +170,7 @@ namespace Wrapper_Test
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
     }

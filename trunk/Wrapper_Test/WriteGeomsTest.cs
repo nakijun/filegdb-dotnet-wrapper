@@ -37,6 +37,7 @@ namespace Wrapper_Test
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
 
@@ -55,18 +56,21 @@ namespace Wrapper_Test
             }
             else
             {
-                ShapeBufferNet shpBuffer = row.GetGeometry();
-                PointNet pt = (PointNet)shpBuffer.GetGeometry();
+                PointShapeBufferNet shpBuffer = (PointShapeBufferNet)row.GetGeometry();
+                PointNet[] points;
+                shpBuffer.GetPoints(out points);
+                PointNet pt = points[0];
+
                 Console.WriteLine("City Found, Geometry details:");
-                Console.WriteLine(String.Format("X: {0}  Y: {1}", pt.X, pt.Y));
+                Console.WriteLine(String.Format("X: {0}  Y: {1}", pt.x, pt.y));
 
                 Console.WriteLine();
-                pt.X += 10;
-                pt.Y += 5;
-                Console.WriteLine(String.Format("Offsetting X by 10 degrees, Y by 5 degrees.  New X/Y should be: {0}, {1}", pt.X, pt.Y));
+                pt.x += 10;
+                pt.y += 5;
+                Console.WriteLine(String.Format("Offsetting X by 10 degrees, Y by 5 degrees.  New X/Y should be: {0}, {1}", pt.x, pt.y));
 
                 Console.WriteLine("Updating geometry in shape buffer");
-                shpBuffer.SetGeometry(pt);
+                shpBuffer.SetPoints(points);
                 row.SetGeometry(shpBuffer);
 
                 Console.WriteLine("Updating row in table");
@@ -86,9 +90,11 @@ namespace Wrapper_Test
             }
             else
             {
-                ShapeBufferNet shpBuffer = updatedRow.GetGeometry();
-                PointNet pt = (PointNet)shpBuffer.GetGeometry();
-                Console.WriteLine(String.Format("Updated Geometry Details: X: {0}  Y: {1}", pt.X, pt.Y));
+                PointShapeBufferNet shpBuffer = (PointShapeBufferNet)updatedRow.GetGeometry();
+                PointNet[] points;
+                shpBuffer.GetPoints(out points);
+                PointNet pt = points[0];
+                Console.WriteLine(String.Format("Updated Geometry Details: X: {0}  Y: {1}", pt.x, pt.y));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -113,21 +119,22 @@ namespace Wrapper_Test
             }
             else
             {
-                ShapeBufferNet shpBuffer = row.GetGeometry();
-                PolylineNet pl = (PolylineNet)shpBuffer.GetGeometry();
+                MultiPartShapeBufferNet shpBuffer = (MultiPartShapeBufferNet)row.GetGeometry();
                 Console.WriteLine("Street Found, Geometry details:");
-                Console.WriteLine(String.Format("Number of parts: {0}  Number of points: {1}", pl.NumParts, pl.NumPoints));
+                Console.WriteLine(String.Format("Number of parts: {0}  Number of points: {1}", shpBuffer.GetNumParts(), shpBuffer.GetNumPoints()));
 
                 Console.WriteLine();
-                PointNet pt1 = pl.Parts[0][0];
-                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.X, pt1.Y));
+                PointNet[] points;
+                shpBuffer.GetPoints(out points);
+                PointNet pt1 = points[0];
+                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.x, pt1.y));
 
                 Console.WriteLine("Offsetting first point X by 10, Y by 5.");
-                pl.Parts[0][0].X += 10;
-                pl.Parts[0][0].Y += 5;
+                pt1.x += 10;
+                pt1.y += 5;
 
                 Console.WriteLine("Updating geometry in shape buffer");
-                shpBuffer.SetGeometry(pl);
+                shpBuffer.SetPoints(points);
                 row.SetGeometry(shpBuffer);
 
                 Console.WriteLine("Updating row in table");
@@ -147,13 +154,14 @@ namespace Wrapper_Test
             }
             else
             {
-                ShapeBufferNet shpBuffer = updatedRow.GetGeometry();
-                PolylineNet pl = (PolylineNet)shpBuffer.GetGeometry();
+                MultiPartShapeBufferNet shpBuffer = (MultiPartShapeBufferNet)updatedRow.GetGeometry();
                 Console.WriteLine("Street Found, Geometry details:");
-                Console.WriteLine(String.Format("Number of parts: {0}  Number of points: {1}", pl.NumParts, pl.NumPoints));
+                Console.WriteLine(String.Format("Number of parts: {0}  Number of points: {1}", shpBuffer.GetNumParts(), shpBuffer.GetNumPoints()));
 
-                PointNet pt1 = pl.Parts[0][0];
-                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.X, pt1.Y));
+                PointNet[] points;
+                shpBuffer.GetPoints(out points);
+                PointNet pt1 = points[0];
+                Console.WriteLine(String.Format("First point coordinates: {0}, {1}", pt1.x, pt1.y));
             }
 
             Console.WriteLine("Closing enumerator.");
@@ -175,20 +183,20 @@ namespace Wrapper_Test
             newPlineRow.SetDate("LASTUPDATE", DateTime.Now);
             newPlineRow.SetString("LASTEDITOR", "CityWorks\\SasaI");
 
-            Console.WriteLine("Creating a new polyline");
-            PolylineNet newPoly = new PolylineNet();
-            newPoly.Parts = new PointNet[1][];
-            newPoly.Parts[0] = new PointNet[4];
-            newPoly.Parts[0][0] = new PointNet(874562.707, 1143028.843);
-            newPoly.Parts[0][1] = new PointNet(881192.573, 1124947.388);
-            newPoly.Parts[0][2] = new PointNet(859463.106, 1125042.554);
-            newPoly.Parts[0][3] = new PointNet(859559.993, 1143377.783);
-            newPoly.Extent = new EnvelopeNet(859463.106, 881192.573, 1124947.388, 1143377.783);
-
             Console.WriteLine("Creating a new shapebuffer");
-            ShapeBufferNet newShpBuffer = new ShapeBufferNet();
-            Console.WriteLine("Assigning polyline geometry to shapebuffer");
-            newShpBuffer.SetGeometry(newPoly);
+            MultiPartShapeBufferNet newShpBuffer = new MultiPartShapeBufferNet();
+            newShpBuffer.Setup(ShapeTypeNet.shapePolyline, 1, 4, 0);
+
+            PointNet[] polyPoints = {
+                new PointNet(874562.707, 1143028.843),
+                new PointNet(881192.573, 1124947.388),
+                new PointNet(859463.106, 1125042.554),
+                new PointNet(859559.993, 1143377.783)
+            };
+            newShpBuffer.SetPoints(polyPoints);
+            newShpBuffer.SetParts(new int[] { 0 });
+            newShpBuffer.CalculateExtent();
+
             Console.WriteLine("Assigning shapebuffer to row");
             newPlineRow.SetGeometry(newShpBuffer);
 

@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using FileGDB_DotNet;
 
@@ -28,20 +29,21 @@ namespace Wrapper_Test
                 TestPoints(gdbnet);
 
                 //TestMultiPoints(gdbnet);
-                
+
                 //TestPolylines(gdbnet);
 
                 Console.WriteLine("Closing geodatabase");
                 gdbnet.CloseGeodatabase();
 
                 Console.WriteLine("***** Finished Running Performance Test *****");
-                
+
             }
             catch (FGDBException exc)
             {
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
 
@@ -54,7 +56,7 @@ namespace Wrapper_Test
 
         private static double RandomDouble(double min, double max)
         {
-            return min + rand.NextDouble()*(max - min);
+            return min + rand.NextDouble() * (max - min);
         }
 
         private static int RandomInteger()
@@ -68,7 +70,7 @@ namespace Wrapper_Test
         {
             Console.WriteLine("Running point performance test........");
 
-            TestPoints(gdbnet, 100000);
+            TestPoints(gdbnet, 10000);
 
             Console.WriteLine("Finished running point performance test.");
         }
@@ -83,8 +85,8 @@ namespace Wrapper_Test
                 DateTime start = DateTime.Now;
 
                 RowNet row;
-                ShapeBufferNet sb;
-                PointNet pt;
+                PointShapeBufferNet psb;
+                PointNet[] pts;
                 double rowSetMs = 0.0;
                 double pointCreateMs = 0.0;
                 double insertMs = 0.0;
@@ -106,10 +108,11 @@ namespace Wrapper_Test
                     double y = RandomDouble(-180, 180);
 
                     blockStart = DateTime.Now;
-                    pt = new PointNet(x, y);
-                    sb = new ShapeBufferNet();
-                    sb.SetGeometry(pt);
-                    row.SetGeometry(sb);
+                    psb = new PointShapeBufferNet();
+                    psb.Setup(ShapeTypeNet.shapePoint);
+                    pts = new PointNet[] { new PointNet(x, y) };
+                    psb.SetPoints(pts);
+                    row.SetGeometry(psb);
                     pointCreateMs += (DateTime.Now - blockStart).TotalMilliseconds;
 
                     blockStart = DateTime.Now;
@@ -190,8 +193,8 @@ namespace Wrapper_Test
 
             try
             {
-                MultiPointNet mp;
-                ShapeBufferNet sb;
+                MultiPointShapeBufferNet mpsb;
+                PointNet[] pts;
                 RowNet row;
 
                 DateTime start = DateTime.Now;
@@ -203,15 +206,16 @@ namespace Wrapper_Test
                     int numSubPoints = rand.Next(1, maxPointsPerMP);
                     totPoints += numSubPoints;
 
-                    mp = new MultiPointNet
-                        {
-                            Points = new PointNet[numSubPoints]
-                        };
+                    mpsb = new MultiPointShapeBufferNet();
+                    mpsb.Setup(ShapeTypeNet.shapeMultipoint, numSubPoints);
 
+                    pts = new PointNet[numSubPoints];
                     for (int j = 0; j < numSubPoints; j++)
-                        mp.Points[j] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
+                        pts[j] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
 
-                    mp.UpdateExtent();
+                    mpsb.SetPoints(pts);
+                    mpsb.CalculateExtent();
+
                     row = table.CreateRowObject();
                     row.SetString("TextField", "Random text string.");
                     row.SetDouble("DoubleField1", RandomDouble());
@@ -220,9 +224,7 @@ namespace Wrapper_Test
                     row.SetInteger("IntegerField1", RandomInteger());
                     row.SetInteger("IntegerField2", RandomInteger());
 
-                    sb = new ShapeBufferNet();
-                    sb.SetGeometry(mp);
-                    row.SetGeometry(sb);
+                    row.SetGeometry(mpsb);
                     table.Insert(row);
                 }
 
@@ -245,7 +247,7 @@ namespace Wrapper_Test
                     textField = row.GetString("TextField");
                     doubleField1 = row.GetDouble("DoubleField1");
                     doubleField2 = row.GetDouble("DoubleField2");
-                    dateField = (DateTime) row.GetDate("DateField");
+                    dateField = (DateTime)row.GetDate("DateField");
                     integerField1 = row.GetInteger("IntegerField1");
                     integerField2 = row.GetInteger("IntegerField2");
                     numMultiPoints++;
@@ -302,29 +304,36 @@ namespace Wrapper_Test
 
             try
             {
-                PolylineNet pl;
-                ShapeBufferNet sb;
+                MultiPartShapeBufferNet mpsb;
+                List<PointNet> lpts;
+                int[] parts;
                 RowNet row;
 
                 DateTime start = DateTime.Now;
                 int totPoints = 0;
                 for (int i = 0; i < numPolylines; i++)
                 {
-                    pl = new PolylineNet();
-                    int parts = rand.Next(1, numParts);
-                    pl.Parts = new PointNet[parts][];
-                    for (int j = 0; j < parts; j++)
+                    lpts = new List<PointNet>();
+                    parts = new int[numParts];
+                    
+                    for (int j = 0; j < numParts; j++)
                     {
-                        int points = rand.Next(2, maxPointsPerPart);
-                        pl.Parts[j] = new PointNet[points];
-                        for (int k = 0; k < points; k++)
+                        parts[j] = rand.Next(1, numParts);
+                        int numPoints = rand.Next(2, maxPointsPerPart);
+                        
+                        for (int k = 0; k < numPoints; k++)
                         {
-                            pl.Parts[j][k] = new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180));
+                            lpts.Add(new PointNet(RandomDouble(-360, 360), RandomDouble(-180, 180)));
                             totPoints++;
                         }
                     }
 
-                    pl.UpdateExtent();
+                    mpsb = new MultiPartShapeBufferNet();
+                    mpsb.Setup(ShapeTypeNet.shapePolyline, numParts, lpts.Count, 0);
+                    mpsb.SetParts(parts);
+                    mpsb.SetPoints(lpts.ToArray());
+                    mpsb.CalculateExtent();
+
                     row = table.CreateRowObject();
                     row.SetString("TextField", "Random text string.");
                     row.SetDouble("DoubleField1", RandomDouble());
@@ -333,9 +342,7 @@ namespace Wrapper_Test
                     row.SetInteger("IntegerField1", RandomInteger());
                     row.SetInteger("IntegerField2", RandomInteger());
 
-                    sb = new ShapeBufferNet();
-                    sb.SetGeometry(pl);
-                    row.SetGeometry(sb);
+                    row.SetGeometry(mpsb);
                     table.Insert(row);
                 }
 
@@ -358,7 +365,7 @@ namespace Wrapper_Test
                     textField = row.GetString("TextField");
                     doubleField1 = row.GetDouble("DoubleField1");
                     doubleField2 = row.GetDouble("DoubleField2");
-                    dateField = (DateTime) row.GetDate("DateField");
+                    dateField = (DateTime)row.GetDate("DateField");
                     integerField1 = row.GetInteger("IntegerField1");
                     integerField2 = row.GetInteger("IntegerField2");
                     numPolylines++;

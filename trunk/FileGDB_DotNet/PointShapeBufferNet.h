@@ -29,6 +29,6 @@ namespace FileGDB_DotNet
 		void GetIDs([Out] array<int>^ %idArray);
 		void SetIDs(array<int>^ idArray);
 
-		void Setup(int shapeType);
+		void Setup(ShapeTypeNet shapeType);
 	};
 }

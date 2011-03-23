@@ -25,7 +25,7 @@ namespace FileGDB_DotNet
 
 	void PointShapeBufferNet::SetPoints(array<PointNet^>^ points)
 	{
-		if (points == nullptr || points->Length != 0)
+		if (points == nullptr || points->Length != 1)
 			throw gcnew Exception("Error setting points.  You must supply an array of exactly 1 point");
 
 		// Get a new pointer to the existing points/geometry
@@ -56,7 +56,7 @@ namespace FileGDB_DotNet
 
 	void PointShapeBufferNet::SetZs(array<double>^ zArray)
 	{
-		if (zArray == nullptr || zArray->Length != 0)
+		if (zArray == nullptr || zArray->Length != 1)
 			throw gcnew Exception("Error setting z values.  You must supply an array of exactly 1 z value");
 
 		fgdbError hr;
@@ -84,7 +84,7 @@ namespace FileGDB_DotNet
 
 	void PointShapeBufferNet::SetMs(array<double>^ mArray)
 	{
-		if (mArray == nullptr || mArray->Length != 0)
+		if (mArray == nullptr || mArray->Length != 1)
 			throw gcnew Exception("Error setting m values.  You must supply an array of exactly 1 m value");
 
 		fgdbError hr;
@@ -112,7 +112,7 @@ namespace FileGDB_DotNet
 
 	void PointShapeBufferNet::SetIDs(array<int>^ idArray)
 	{
-		if (idArray == nullptr || idArray->Length != 0)
+		if (idArray == nullptr || idArray->Length != 1)
 			throw gcnew Exception("Error setting IDs.  You must supply an array of exactly 1 ID");
 
 		fgdbError hr;
@@ -125,11 +125,11 @@ namespace FileGDB_DotNet
 		inIdArray[0] = idArray[0];
 	}
 
-	void PointShapeBufferNet::Setup(int shapeType)
+	void PointShapeBufferNet::Setup(ShapeTypeNet shapeType)
 	{
 		fgdbError hr;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->Setup(shapeType)) != S_OK) {
+		if ((hr = psb->Setup((int)shapeType)) != S_OK) {
 			throw gcnew FGDBException("Error setting up.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
