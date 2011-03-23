@@ -61,6 +61,7 @@ namespace Wrapper_Test
                 Console.WriteLine("Exception caught while running test.");
                 Console.WriteLine("Code: " + exc.ErrorCode);
                 Console.WriteLine("Message: " + exc);
+                Console.WriteLine("Description: " + exc.ErrorDescription);
             }
         }
     }

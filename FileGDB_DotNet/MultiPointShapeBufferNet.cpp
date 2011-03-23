@@ -10,7 +10,7 @@
 
 namespace FileGDB_DotNet 
 {
-	void MultiPointShapeBufferNet::GetExtent([Out] array<double>^ %extent)
+	EnvelopeNet^ MultiPointShapeBufferNet::GetExtent()
 	{
 		fgdbError hr;
 		double* inExtent;
@@ -19,20 +19,11 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting extent.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		// TODO: Verify to make sure extent is in fact returned as 4 doubles
-		// TODO: Return an Envelope instead of a double array?
-		extent = gcnew array<double>(4);
-		extent[0] = inExtent[0];
-		extent[1] = inExtent[1];
-		extent[2] = inExtent[2];
-		extent[3] = inExtent[3];
+		return gcnew EnvelopeNet(inExtent[0], inExtent[2],inExtent[1], inExtent[3]);
 	}
 
-	void MultiPointShapeBufferNet::SetExtent(array<double>^ extent)
+	void MultiPointShapeBufferNet::SetExtent(EnvelopeNet^ extent)
 	{
-		if (extent == nullptr || extent->Length != 4)
-			throw gcnew Exception("Error setting extent.  You must supply an array of exactly 4 values.");
-
 		fgdbError hr;
 		double* inExtent;
 		FileGDBAPI::MultiPointShapeBuffer* mpsb = (FileGDBAPI::MultiPointShapeBuffer*)this->fgdbApiShapeBuffer;
@@ -40,12 +31,10 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting extent.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		// TODO: Verify to make sure extent is in fact returned as 4 doubles
-		// TODO: Return an Envelope instead of a double array?
-		inExtent[0] = extent[0];
-		inExtent[1] = extent[1];
-		inExtent[2] = extent[2];
-		inExtent[3] = extent[3];
+		inExtent[0] = extent->XMin;
+		inExtent[1] = extent->YMin;
+		inExtent[2] = extent->XMax;
+		inExtent[3] = extent->YMax;
 	}
 	
 	int MultiPointShapeBufferNet::GetNumPoints()
@@ -270,11 +259,11 @@ namespace FileGDB_DotNet
 			inIdArray[i] = idArray[i];
 	}
 	
-	void MultiPointShapeBufferNet::Setup(int shapeType, int numPoints)
+	void MultiPointShapeBufferNet::Setup(ShapeTypeNet shapeType, int numPoints)
 	{
 		fgdbError hr;
 		FileGDBAPI::MultiPointShapeBuffer* mpsb = (FileGDBAPI::MultiPointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = mpsb->Setup(shapeType, numPoints)) != S_OK) {
+		if ((hr = mpsb->Setup((int)shapeType, numPoints)) != S_OK) {
 			throw gcnew FGDBException("Error setting up.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}

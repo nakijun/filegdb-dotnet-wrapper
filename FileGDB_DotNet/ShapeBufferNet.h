@@ -10,6 +10,7 @@
 
 #include "FileGDBAPI.h"
 #include "ConstantsNet.h"
+#include "EnvelopeNet.h"
 
 using namespace std;
 using namespace System;
