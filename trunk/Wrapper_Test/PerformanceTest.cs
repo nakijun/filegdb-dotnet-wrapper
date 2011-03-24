@@ -28,9 +28,9 @@ namespace Wrapper_Test
 
                 TestPoints(gdbnet);
 
-                //TestMultiPoints(gdbnet);
+                TestMultiPoints(gdbnet);
 
-                //TestPolylines(gdbnet);
+                TestPolylines(gdbnet);
 
                 Console.WriteLine("Closing geodatabase");
                 gdbnet.CloseGeodatabase();
@@ -70,7 +70,7 @@ namespace Wrapper_Test
         {
             Console.WriteLine("Running point performance test........");
 
-            TestPoints(gdbnet, 10000);
+            TestPoints(gdbnet, 5000);
 
             Console.WriteLine("Finished running point performance test.");
         }
@@ -179,7 +179,7 @@ namespace Wrapper_Test
         {
             Console.WriteLine("Running multipoint performance test........");
 
-            TestMultiPoints(gdbnet, 10000, 1000);
+            TestMultiPoints(gdbnet, 500, 25);
 
             Console.WriteLine("Finished running multipoint performance test.");
         }
@@ -203,7 +203,7 @@ namespace Wrapper_Test
                 for (int i = 0; i < numMultiPoints; i++)
                 {
                     // Generate 1-100 points per multipoint
-                    int numSubPoints = rand.Next(1, maxPointsPerMP);
+                    int numSubPoints = rand.Next(1, maxPointsPerMP+1);
                     totPoints += numSubPoints;
 
                     mpsb = new MultiPointShapeBufferNet();
@@ -285,7 +285,7 @@ namespace Wrapper_Test
         {
             Console.WriteLine("Running polyline performance test........");
 
-            TestPolylines(gdbnet, 1000, 5, 100);
+            TestPolylines(gdbnet, 10000, 1, 10);
 
             Console.WriteLine("Finished running polyline performance test.");
         }
@@ -299,7 +299,7 @@ namespace Wrapper_Test
 
             Console.WriteLine("Running polyline performance test........");
 
-            Console.WriteLine("Writing " + numPolylines + " to the database.");
+            Console.WriteLine("Writing " + numPolylines + " polylines to the database.");
             TableNet table = gdbnet.OpenTable("\\Lines");
 
             try
@@ -318,8 +318,8 @@ namespace Wrapper_Test
                     
                     for (int j = 0; j < numParts; j++)
                     {
-                        parts[j] = rand.Next(1, numParts);
-                        int numPoints = rand.Next(2, maxPointsPerPart);
+                        parts[j] = rand.Next(1, numParts+1);
+                        int numPoints = rand.Next(2, maxPointsPerPart+1);
                         
                         for (int k = 0; k < numPoints; k++)
                         {
