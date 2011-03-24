@@ -8,7 +8,7 @@
 
 namespace FileGDB_DotNet 
 {
-	bool ByteArrayNet::Allocate(unsigned long length)
+	bool ByteArrayNet::Allocate(size_t length)
 	{
 		return this->fgdbApiByteArray->Allocate(length);
 	}
@@ -27,7 +27,7 @@ namespace FileGDB_DotNet
 			return;
 
 		this->m_bytes->Seek(0, SeekOrigin::Begin);
-		if (this->m_bytes->Length > this->fgdbApiByteArray->allocatedLength)
+		if ((size_t)this->m_bytes->Length > this->fgdbApiByteArray->allocatedLength)
 			this->fgdbApiByteArray->Allocate((unsigned long)this->m_bytes->Length);
 		
 		unsigned char b;

@@ -12,14 +12,17 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)output\x86\$(ConfigurationName)\"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			ManagedExtensions="1"
@@ -44,6 +47,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
+				MinimalRebuild="false"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				GenerateXMLDocumentationFiles="false"
@@ -88,13 +92,89 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.dll&quot; $(OutDir)&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.pdb&quot; $(OutDir)&#x0D;&#x0A;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(SolutionDir)output\x64\$(ConfigurationName)\"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="2"
+				GenerateXMLDocumentationFiles="false"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="FileGDBAPID.lib $(NoInherit)"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib64&quot;"
+				GenerateDebugInformation="true"
+				AssemblyDebug="1"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)output\x86\$(ConfigurationName)\"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			ManagedExtensions="1"
@@ -117,6 +197,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -134,9 +216,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(NoInherit)"
+				AdditionalDependencies="FileGDBAPI.lib $(NoInherit)"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib&quot;"
 				GenerateDebugInformation="true"
+				OptimizeReferences="1"
+				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -159,6 +244,85 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|x64"
+			OutputDirectory="$(SolutionDir)output\x64\$(ConfigurationName)\"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="FileGDBAPI.lib $(NoInherit)"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib64&quot;"
+				GenerateDebugInformation="true"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				OptimizeForWindows98="0"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -265,7 +429,23 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

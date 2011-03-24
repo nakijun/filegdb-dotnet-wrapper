@@ -63,16 +63,16 @@ namespace FileGDB_DotNet
 
 		static int GeometryType(int shapeType);
 
-		property unsigned long allocatedLength
+		property size_t allocatedLength
 		{
-			unsigned long get() { return this->fgdbApiShapeBuffer->allocatedLength; }
-			void set(unsigned long value) { this->fgdbApiShapeBuffer->allocatedLength = value; }
+			size_t get() { return this->fgdbApiShapeBuffer->allocatedLength; }
+			void set(size_t value) { this->fgdbApiShapeBuffer->allocatedLength = value; }
 		}
 
-		property unsigned long inUseLength
+		property size_t inUseLength
 		{
-			unsigned long get() { return this->fgdbApiShapeBuffer->inUseLength; }
-			void set(unsigned long value) { this->fgdbApiShapeBuffer->inUseLength = value; }
+			size_t get() { return this->fgdbApiShapeBuffer->inUseLength; }
+			void set(size_t value) { this->fgdbApiShapeBuffer->inUseLength = value; }
 		}
 
 		/// <summary>
@@ -82,7 +82,7 @@ namespace FileGDB_DotNet
 		{
 			MemoryStream^ get() {
 				if (this->m_bytes == nullptr) {
-					this->m_bytes = gcnew MemoryStream(this->fgdbApiShapeBuffer->allocatedLength);
+					this->m_bytes = gcnew MemoryStream((int)this->fgdbApiShapeBuffer->allocatedLength);
 					// Read in the bytes
 					for (unsigned long i=0; i<this->fgdbApiShapeBuffer->inUseLength; i++) {
 						this->m_bytes->WriteByte(*(this->fgdbApiShapeBuffer->shapeBuffer+i));
