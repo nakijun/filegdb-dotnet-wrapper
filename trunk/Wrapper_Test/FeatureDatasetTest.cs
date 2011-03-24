@@ -13,9 +13,9 @@ namespace Wrapper_Test
     {
         public static void Run()
         {
-            string gdbpath = "..\\data\\fdsdemo.gdb";
-            string transitpath = "..\\data\\TransitFD.xml";
-            string busstopspath = "..\\data\\BusStopsTable.xml";
+            string gdbpath = "data\\fdsdemo.gdb";
+            string transitpath = "data\\TransitFD.xml";
+            string busstopspath = "data\\BusStopsTable.xml";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Feature Dataset Test *****");

@@ -13,7 +13,7 @@ namespace Wrapper_Test
     {
         public static void Run()
         {
-            string gdbpath = "..\\data\\Querying.gdb";
+            string gdbpath = "data\\Querying.gdb";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Query Test *****");

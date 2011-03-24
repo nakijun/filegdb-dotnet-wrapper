@@ -21,7 +21,7 @@ namespace FileGDB_DotNet
 	{
 	public:
 		ByteArrayNet() : fgdbApiByteArray(new FileGDBAPI::ByteArray()) { this->m_bytes = nullptr; };
-		ByteArrayNet(unsigned long length) : fgdbApiByteArray(new FileGDBAPI::ByteArray(length)) { this->m_bytes = nullptr; };
+		ByteArrayNet(size_t length) : fgdbApiByteArray(new FileGDBAPI::ByteArray(length)) { this->m_bytes = nullptr; };
 
 		virtual ~ByteArrayNet() 
 		{
@@ -34,19 +34,19 @@ namespace FileGDB_DotNet
 		FileGDBAPI::ByteArray* fgdbApiByteArray;
 		
 
-		bool Allocate(unsigned long length);
+		bool Allocate(size_t length);
 		void CommitBytes();
 
-		property unsigned long AllocatedLength
+		property size_t AllocatedLength
 		{
-			unsigned long get() { return this->fgdbApiByteArray->allocatedLength; }
-			void set(unsigned long value) { this->fgdbApiByteArray->allocatedLength = value; }
+			size_t get() { return this->fgdbApiByteArray->allocatedLength; }
+			void set(size_t value) { this->fgdbApiByteArray->allocatedLength = value; }
 		}
 
-		property unsigned long InUseLength
+		property size_t InUseLength
 		{
-			unsigned long get() { return this->fgdbApiByteArray->inUseLength; }
-			void set(unsigned long value) { this->fgdbApiByteArray->inUseLength = value; }
+			size_t get() { return this->fgdbApiByteArray->inUseLength; }
+			void set(size_t value) { this->fgdbApiByteArray->inUseLength = value; }
 		}
 
 		/// <summary>
@@ -56,7 +56,7 @@ namespace FileGDB_DotNet
 		{
 			MemoryStream^ get() {
 				if (this->m_bytes == nullptr) {
-					this->m_bytes = gcnew MemoryStream(this->fgdbApiByteArray->allocatedLength);
+					this->m_bytes = gcnew MemoryStream((int)this->fgdbApiByteArray->allocatedLength);
 					// Read in the bytes
 					for (unsigned long i=0; i<this->fgdbApiByteArray->inUseLength; i++) {
 						this->m_bytes->WriteByte(*(this->fgdbApiByteArray->byteArray+i));

@@ -15,7 +15,7 @@ namespace Wrapper_Test
         static Random rand = new Random();
         public static void Run()
         {
-            string gdbpath = "..\\data\\Performance.gdb";
+            string gdbpath = "data\\Performance.gdb";
 
             Console.WriteLine();
             Console.WriteLine("***** Running PerformanceTest *****");
