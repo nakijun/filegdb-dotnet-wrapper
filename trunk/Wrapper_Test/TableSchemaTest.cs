@@ -13,15 +13,15 @@ namespace Wrapper_Test
     {
         private const string STREET_TYPE_FIELD =
             "<esri:Field xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:esri='http://www.esri.com/schemas/ArcGIS/10.1' xsi:type='esri:Field'>" +
-            "<Name>StreetType</Name>" +
-            "<Type>esriFieldTypeSmallInteger</Type>" +
+            "<Name>night</Name>" +
+            "<Type>esriFieldTypeString</Type>" +
             "<IsNullable>true</IsNullable>" +
-            "<Length>2</Length>" +
+            "<Length>4</Length>" +
             "<Precision>0</Precision>" +
             "<Scale>0</Scale>" +
             "<AliasName>day</AliasName>" +
             "<ModelName>night</ModelName>" +
-            "<DefaultValue xsi:type=\"xs:short\">1</DefaultValue>" +
+            "<DefaultValue xsi:type=\"xs:string\">afternoon</DefaultValue>" +
             "</esri:Field>";
 
         private const string STREET_TYPE_INDEX =
@@ -49,40 +49,27 @@ namespace Wrapper_Test
             "</esri:Index>";
 
         private const string SUBTYPE_DEFINITION =
-            "<esri:Subtype xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:esri='http://www.esri.com/schemas/ArcGIS/10.1\' xsi:type='esri:Subtype'>" +
-            "<SubtypeName>Trunk Highway</SubtypeName>" +
+            "<esri:Subtype xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:esri=\"http://www.esri.com/schemas/ArcGIS/10.1\" xsi:type=\"esri:Subtype\">" +
+            "<SubtypeName>subtype three</SubtypeName>" +
             "<SubtypeCode>99</SubtypeCode>" +
             "<FieldInfos xsi:type='esri:ArrayOfSubtypeFieldInfo'>" +
             "<SubtypeFieldInfo xsi:type='esri:SubtypeFieldInfo'>" +
-            "<FieldName>LaneCount</FieldName>" +
-            "<DomainName></DomainName>" +
-            "<DefaultValue xsi:type='xs:short'>10</DefaultValue>" +
+            "<FieldName>percentComplete</FieldName>" +
+            "<DomainName>sampleRangeDomain</DomainName>" +
+            "<DefaultValue xsi:type='xs:double'>56</DefaultValue>" +
             "</SubtypeFieldInfo>" +
             "</FieldInfos>" +
             "</esri:Subtype>";
 
         private const string SUBTYPE_DEFINITION_ALTERED =
             "<esri:Subtype xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:esri=\"http://www.esri.com/schemas/ArcGIS/10.1\" xsi:type=\"esri:Subtype\">" +
-            "<SubtypeName>Trunk Highway</SubtypeName>" +
+            "<SubtypeName>subtype three</SubtypeName>" +
             "<SubtypeCode>98</SubtypeCode>" +
-            "<FieldInfos xsi:type=\"esri:ArrayOfSubtypeFieldInfo\">" +
-            "<SubtypeFieldInfo xsi:type=\"esri:SubtypeFieldInfo\">" +
-            "<FieldName>LaneCount</FieldName>" +
-            "<DomainName></DomainName>" +
-            "<DefaultValue xsi:type=\"xs:short\">8</DefaultValue>" +
-            "</SubtypeFieldInfo>" +
-            "</FieldInfos>" +
-            "</esri:Subtype>";
-
-        private const string SUBTYPE_DEFINITION_2 =
-            "<esri:Subtype xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:esri=\"http://www.esri.com/schemas/ArcGIS/10.1\" xsi:type=\"esri:Subtype\">" +
-            "<SubtypeName>Local Streets</SubtypeName>" +
-            "<SubtypeCode>4</SubtypeCode>" +
-            "<FieldInfos xsi:type=\"esri:ArrayOfSubtypeFieldInfo\">" +
-            "<SubtypeFieldInfo xsi:type=\"esri:SubtypeFieldInfo\">" +
-            "<FieldName>LaneCount</FieldName>" +
-            "<DomainName></DomainName>" +
-            "<DefaultValue xsi:type=\"xs:short\">2</DefaultValue>" +
+            "<FieldInfos xsi:type='esri:ArrayOfSubtypeFieldInfo'>" +
+            "<SubtypeFieldInfo xsi:type='esri:SubtypeFieldInfo'>" +
+            "<FieldName>percentComplete</FieldName>" +
+            "<DomainName>sampleRangeDomain</DomainName>" +
+            "<DefaultValue xsi:type='xs:double'>56</DefaultValue>" +
             "</SubtypeFieldInfo>" +
             "</FieldInfos>" +
             "</esri:Subtype>";
@@ -91,7 +78,7 @@ namespace Wrapper_Test
         public static void Run()
         {
             string gdbpath = "..\\data\\tableschematest.gdb";
-            string fcdefpath = "..\\data\\Streets.xml";
+            string fcdefpath = "..\\data\\Table.xml";
 
             Console.WriteLine();
             Console.WriteLine("***** Running Table Schema Test *****");
@@ -127,8 +114,8 @@ namespace Wrapper_Test
                 Console.WriteLine("Adding StreetType field");
                 streetsTable.AddField(STREET_TYPE_FIELD);
 
-                Console.WriteLine("Deleting SpeedLimit field");
-                streetsTable.DeleteField("SpeedLimit");
+                Console.WriteLine("Deleting Width field");
+                streetsTable.DeleteField("Width");
 
                 Console.WriteLine("Creating StreetTypeIndex");
                 streetsTable.AddIndex(STREET_TYPE_INDEX);
@@ -150,9 +137,6 @@ namespace Wrapper_Test
 
                 Console.WriteLine("Altering subtype definition");
                 streetsTable.AlterSubtype(SUBTYPE_DEFINITION_ALTERED);
-
-                Console.WriteLine("Creating Local Streets subtype");
-                streetsTable.CreateSubtype(SUBTYPE_DEFINITION_2);
 
                 Console.WriteLine("Deleting Local Streets subtype");
                 streetsTable.DeleteSubtype("Local Streets");
