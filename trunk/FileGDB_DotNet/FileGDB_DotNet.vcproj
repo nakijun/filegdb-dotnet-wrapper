@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="false"
 				RuntimeLibrary="3"
@@ -67,7 +67,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="FileGDBAPID.lib $(NoInherit)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\lib&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -92,7 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -143,7 +143,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="FileGDBAPID.lib $(NoInherit)"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib64&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\lib64&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="17"
@@ -168,7 +168,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin64\FileGDBAPID.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin64\FileGDBAPID.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -198,7 +198,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -218,7 +218,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="FileGDBAPI.lib $(NoInherit)"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\lib&quot;"
 				GenerateDebugInformation="true"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="2"
@@ -244,7 +244,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -275,7 +275,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -295,7 +295,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="FileGDBAPI.lib $(NoInherit)"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_1_0_beta3\lib64&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\lib64&quot;"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -322,7 +322,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_1_0_beta3\bin64\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
+				CommandLine="xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin64\FileGDBAPI.dll&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /dy &quot;$(ProjectDir)FileGDB_API_VS2008_1_0Final\bin64\FileGDBAPI.pdb&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

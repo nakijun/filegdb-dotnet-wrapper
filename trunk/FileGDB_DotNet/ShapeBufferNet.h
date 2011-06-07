@@ -53,15 +53,15 @@ namespace FileGDB_DotNet
 		ShapeTypeNet GetShapeType();
 		bool Allocate(unsigned long length);
 
-		static bool HasZs(int shapeType);
-		static bool HasMs(int shapeType);
-		static bool HasIDs(int shapeType);
-		static bool HasCurves(int shapeType);
-		static bool HasNormals(int shapeType);
-		static bool HasTextures(int shapeType);
-		static bool HasMaterials(int shapeType);
+		static bool HasZs(FileGDBAPI::ShapeType shapeType);
+		static bool HasMs(FileGDBAPI::ShapeType shapeType);
+		static bool HasIDs(FileGDBAPI::ShapeType shapeType);
+		static bool HasCurves(FileGDBAPI::ShapeType shapeType);
+		static bool HasNormals(FileGDBAPI::ShapeType shapeType);
+		static bool HasTextures(FileGDBAPI::ShapeType shapeType);
+		static bool HasMaterials(FileGDBAPI::ShapeType shapeType);
 
-		static int GeometryType(int shapeType);
+		static int GeometryType(FileGDBAPI::ShapeType);
 
 		property size_t allocatedLength
 		{

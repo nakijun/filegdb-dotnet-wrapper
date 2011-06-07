@@ -7,6 +7,8 @@
 
 #pragma warning (disable : 4251)
 
+#include "FileGDBAPI.h"
+
 using namespace std;
 using namespace System;
 using namespace System::Collections::Generic;
@@ -18,8 +20,8 @@ namespace FileGDB_DotNet
 	void MarshalString(String^, std::string&);
 	List<String^>^ MarshalVector(std::vector<std::wstring>&);
 	List<String^>^ MarshalVector(std::vector<std::string>&);
-	System::Guid MarshalGuid(GUID& inguid);
-	GUID MarshalGuid(System::Guid& inguid);
+	System::Guid MarshalGuid(FileGDBAPI::Guid& inguid);
+	FileGDBAPI::Guid MarshalGuid(System::Guid& inguid);
 	System::DateTime MarshalDateTime(struct tm& indt);
 	struct tm MarshalDateTime(System::DateTime& dt);
 }

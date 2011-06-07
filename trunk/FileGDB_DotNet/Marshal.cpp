@@ -49,19 +49,19 @@ namespace FileGDB_DotNet
 		return outlist;
 	}
 
-	Guid MarshalGuid(GUID& inguid)
+	Guid MarshalGuid(FileGDBAPI::Guid& inguid)
 	{
-		return Guid(inguid.Data1, inguid.Data2, inguid.Data3,
-			inguid.Data4[0], inguid.Data4[1], inguid.Data4[2],
-			inguid.Data4[3], inguid.Data4[4], inguid.Data4[5],
-			inguid.Data4[6], inguid.Data4[7]);
+		return Guid(inguid.data1, inguid.data2, inguid.data3,
+			inguid.data4[0], inguid.data4[1], inguid.data4[2],
+			inguid.data4[3], inguid.data4[4], inguid.data4[5],
+			inguid.data4[6], inguid.data4[7]);
 	}
 
-	GUID MarshalGuid(System::Guid& inguid)
+	FileGDBAPI::Guid MarshalGuid(System::Guid& inguid)
 	{
 		array<Byte>^ guidData = inguid.ToByteArray();
 		pin_ptr<Byte> data = &(guidData[0]);
-		return *(GUID *)data;
+		return *(FileGDBAPI::Guid *)data;
 	}
 
 	DateTime MarshalDateTime(struct tm& indt)

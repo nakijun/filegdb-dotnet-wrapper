@@ -15,7 +15,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		FileGDBAPI::Point* inPoints;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetPoints(inPoints)) != S_OK) {
+		if ((hr = psb->GetPoint(inPoints)) != S_OK) {
 			throw gcnew FGDBException("Error getting XY values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -32,7 +32,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		FileGDBAPI::Point* inPoints;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetPoints(inPoints)) != S_OK) {
+		if ((hr = psb->GetPoint(inPoints)) != S_OK) {
 			throw gcnew FGDBException("Error getting XY values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -46,7 +46,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		double* inZArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetZs(inZArray)) != S_OK) {
+		if ((hr = psb->GetZ(inZArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting Z values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -62,7 +62,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		double* inZArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetZs(inZArray)) != S_OK) {
+		if ((hr = psb->GetZ(inZArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting Z values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -74,7 +74,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		double* inMArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetMs(inMArray)) != S_OK) {
+		if ((hr = psb->GetM(inMArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting M values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -90,7 +90,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		double* inMArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetMs(inMArray)) != S_OK) {
+		if ((hr = psb->GetM(inMArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting M values.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -102,7 +102,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		int* inIdArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetIDs(inIdArray)) != S_OK) {
+		if ((hr = psb->GetID(inIdArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting IDs.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -118,7 +118,7 @@ namespace FileGDB_DotNet
 		fgdbError hr;
 		int* inIdArray;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->GetIDs(inIdArray)) != S_OK) {
+		if ((hr = psb->GetID(inIdArray)) != S_OK) {
 			throw gcnew FGDBException("Error getting IDs.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
@@ -129,7 +129,7 @@ namespace FileGDB_DotNet
 	{
 		fgdbError hr;
 		FileGDBAPI::PointShapeBuffer* psb = (FileGDBAPI::PointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = psb->Setup((int)shapeType)) != S_OK) {
+		if ((hr = psb->Setup((FileGDBAPI::ShapeType)shapeType)) != S_OK) {
 			throw gcnew FGDBException("Error setting up.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}

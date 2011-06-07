@@ -52,7 +52,7 @@ namespace FileGDB_DotNet
 
 	System::Guid^ RowNet::GetGlobalID() 
 	{
-		GUID val;
+		FileGDBAPI::Guid val;
 		fgdbError hr;
 		if ((hr = this->fgdbApiRow->GetGlobalID(val)) != S_OK) {
 			throw gcnew Exception("Error getting Global ID.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")");
@@ -69,7 +69,7 @@ namespace FileGDB_DotNet
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 
-		int shapeType;
+		FileGDBAPI::ShapeType shapeType;
 		sb->GetShapeType(shapeType);
 
 		ShapeBufferNet^ outsb;
@@ -284,7 +284,7 @@ namespace FileGDB_DotNet
 		std::wstring wField;
 		MarshalString(field, wField);
 
-		GUID val;
+		FileGDBAPI::Guid val;
 		fgdbError hr;
 		if ((hr = this->fgdbApiRow->GetGUID(wField, val)) != S_OK) {
 			throw gcnew FGDBException("Error getting value.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
@@ -297,7 +297,7 @@ namespace FileGDB_DotNet
 	{
 		std::wstring wField;
 		MarshalString(field, wField);
-		GUID guidval = MarshalGuid(val);
+		FileGDBAPI::Guid guidval = MarshalGuid(val);
 
 		fgdbError hr;
 		if ((hr = this->fgdbApiRow->SetGUID(wField, guidval)) != S_OK) {

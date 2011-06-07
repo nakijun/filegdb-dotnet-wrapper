@@ -46,7 +46,7 @@ namespace Wrapper_Test
                     tableDef = sr.ReadToEnd();
 
                 Console.WriteLine("Creating table with Transit dataset as parent");
-                TableNet table = gdbnet.CreateTable(tableDef, "Transit");
+                TableNet table = gdbnet.CreateTable(tableDef, "\\Transit");
 
                 Console.WriteLine("Closing Transit table");
                 gdbnet.CloseTable(table);
