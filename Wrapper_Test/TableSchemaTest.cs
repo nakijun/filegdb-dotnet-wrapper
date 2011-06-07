@@ -11,6 +11,18 @@ namespace Wrapper_Test
 {
     public class TableSchemaTest
     {
+        private const string DOMAIN_DEFINITION =
+            "<esri:Domain xsi:type='esri:RangeDomain' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:esri='http://www.esri.com/schemas/ArcGIS/10.1'>" +
+            "<DomainName>LaneDomain</DomainName>" +
+            "<FieldType>esriFieldTypeSmallInteger</FieldType>" +
+            "<MergePolicy>esriMPTDefaultValue</MergePolicy>" +
+            "<SplitPolicy>esriSPTDefaultValue</SplitPolicy>" +
+            "<Description>The number of lanes on a road</Description>" +
+            "<Owner></Owner>" +
+            "<MaxValue xsi:type='xs:short'>12</MaxValue>" +
+            "<MinValue xsi:type='xs:short'>1</MinValue>" +
+            "</esri:Domain>";
+
         private const string STREET_TYPE_FIELD =
             "<esri:Field xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:esri='http://www.esri.com/schemas/ArcGIS/10.1' xsi:type='esri:Field'>" +
             "<Name>night</Name>" +
@@ -55,7 +67,7 @@ namespace Wrapper_Test
             "<FieldInfos xsi:type='esri:ArrayOfSubtypeFieldInfo'>" +
             "<SubtypeFieldInfo xsi:type='esri:SubtypeFieldInfo'>" +
             "<FieldName>percentComplete</FieldName>" +
-            "<DomainName>sampleRangeDomain</DomainName>" +
+            "<DomainName>LaneDomain</DomainName>" +
             "<DefaultValue xsi:type='xs:double'>56</DefaultValue>" +
             "</SubtypeFieldInfo>" +
             "</FieldInfos>" +
@@ -68,7 +80,7 @@ namespace Wrapper_Test
             "<FieldInfos xsi:type='esri:ArrayOfSubtypeFieldInfo'>" +
             "<SubtypeFieldInfo xsi:type='esri:SubtypeFieldInfo'>" +
             "<FieldName>percentComplete</FieldName>" +
-            "<DomainName>sampleRangeDomain</DomainName>" +
+            "<DomainName>LaneDomain</DomainName>" +
             "<DefaultValue xsi:type='xs:double'>56</DefaultValue>" +
             "</SubtypeFieldInfo>" +
             "</FieldInfos>" +
@@ -101,6 +113,10 @@ namespace Wrapper_Test
                     Console.WriteLine("ERROR - Geodatabase creation reported no errors but no geodatabase found.  Exiting...");
                     return;
                 }
+
+                Console.WriteLine("Creating a domain definition.");
+                gdbnet.CreateDomain(DOMAIN_DEFINITION);
+
 
                 Console.WriteLine("Reading XML Feature Class Definition");
                 string tableDef;

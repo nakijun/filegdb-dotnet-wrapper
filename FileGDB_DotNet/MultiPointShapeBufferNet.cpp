@@ -263,7 +263,7 @@ namespace FileGDB_DotNet
 	{
 		fgdbError hr;
 		FileGDBAPI::MultiPointShapeBuffer* mpsb = (FileGDBAPI::MultiPointShapeBuffer*)this->fgdbApiShapeBuffer;
-		if ((hr = mpsb->Setup((int)shapeType, numPoints)) != S_OK) {
+		if ((hr = mpsb->Setup((FileGDBAPI::ShapeType)shapeType, numPoints)) != S_OK) {
 			throw gcnew FGDBException("Error setting up.  Error code: " + hr + "  (0x" + hr.ToString("X8") + ")", hr);
 		}
 	}
